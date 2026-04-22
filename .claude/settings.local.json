@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dev *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where pnpm *)",
+      "Bash(npx --yes pnpm --version)",
+      "Bash(node -e \"console.log\\(process.execPath\\)\")",
+      "Bash(npm run *)",
+      "Bash(npx pnpm *)",
+      "Bash(start microsoft-edge:http://localhost:5173)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git add *)"
+    ]
+  }
+}
