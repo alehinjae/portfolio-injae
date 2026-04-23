@@ -71,7 +71,7 @@ export function Home() {
             </p>
           </div>
           <p className="text-[15px] font-light leading-[30px] text-[#8b8b8b] md:text-[16.7px]">
-            Currently Product Designer at <span className="text-black">Thoughtworks</span>
+            Currently Product Designer Latam at <span className="text-black">Thoughtworks</span>
           </p>
         </section>
 
