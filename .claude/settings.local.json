@@ -23,7 +23,14 @@
       "Bash(cmd.exe /c \"pnpm install\")",
       "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm build *)",
       "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm install *)",
-      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm dev *)"
+      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm dev *)",
+      "mcp__figma__get_design_context",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(cmd.exe /c \"npx -y @google/chrome-devtools-mcp --version 2>&1 | head -3\")",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "mcp__chrome-devtools__list_pages"
     ]
   }
 }

@@ -1,0 +1,64 @@
+- main [ref=e2]:
+  - generic [ref=e5]:
+    - link [ref=e7] [cursor=pointer]:
+      - /url: https://uxfol.io
+      - img [ref=e8]
+    - link "Sign up" [ref=e18] [cursor=pointer]:
+      - /url: /realms/Folio/login-actions/registration?client_id=folio-app&tab_id=7O9s3aZKnCQ&client_data=eyJydSI6Imh0dHBzOi8vdXhmb2wuaW8vbG9naW4vb2F1dGgyL2NvZGUva2V5Y2xvYWsiLCJydCI6ImNvZGUiLCJzdCI6ImlfOUotcVNmSDh5RDZXTDFZazVzQlZFZHVTelFWZHBfcVNqdEx5bGdfcGM9In0
+      - generic [ref=e19]: Sign up
+      - img [ref=e20]
+  - generic [ref=e23]:
+    - generic [ref=e24]:
+      - img [ref=e26]
+      - img [ref=e29]
+      - img [ref=e32]
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - heading "Log in" [level=1] [ref=e41]
+          - generic [ref=e42]: Ready to jump back in?
+        - generic [ref=e44]:
+          - link "Log in with Facebook" [ref=e45] [cursor=pointer]:
+            - /url: /realms/Folio/broker/facebook/login?client_id=folio-app&tab_id=7O9s3aZKnCQ&client_data=eyJydSI6Imh0dHBzOi8vdXhmb2wuaW8vbG9naW4vb2F1dGgyL2NvZGUva2V5Y2xvYWsiLCJydCI6ImNvZGUiLCJzdCI6ImlfOUotcVNmSDh5RDZXTDFZazVzQlZFZHVTelFWZHBfcVNqdEx5bGdfcGM9In0&session_code=tLAY6iljCBI2jrQ_cfLpUTW0Lq4lXGB1KV4MpocNVbA
+            - img [ref=e46]
+            - text: Log in with Facebook
+          - link "Log in with Google" [ref=e47] [cursor=pointer]:
+            - /url: /realms/Folio/broker/google/login?client_id=folio-app&tab_id=7O9s3aZKnCQ&client_data=eyJydSI6Imh0dHBzOi8vdXhmb2wuaW8vbG9naW4vb2F1dGgyL2NvZGUva2V5Y2xvYWsiLCJydCI6ImNvZGUiLCJzdCI6ImlfOUotcVNmSDh5RDZXTDFZazVzQlZFZHVTelFWZHBfcVNqdEx5bGdfcGM9In0&session_code=tLAY6iljCBI2jrQ_cfLpUTW0Lq4lXGB1KV4MpocNVbA
+            - img [ref=e48]
+            - text: Log in with Google
+          - button "Log in with Email" [ref=e49] [cursor=pointer]:
+            - img [ref=e50]
+            - text: Log in with Email
+        - link "New to UXfolio? Sign up" [ref=e54] [cursor=pointer]:
+          - /url: /realms/Folio/login-actions/registration?client_id=folio-app&tab_id=7O9s3aZKnCQ&client_data=eyJydSI6Imh0dHBzOi8vdXhmb2wuaW8vbG9naW4vb2F1dGgyL2NvZGUva2V5Y2xvYWsiLCJydCI6ImNvZGUiLCJzdCI6ImlfOUotcVNmSDh5RDZXTDFZazVzQlZFZHVTelFWZHBfcVNqdEx5bGdfcGM9In0
+          - generic [ref=e55]: New to UXfolio? Sign up
+          - img [ref=e56]
+    - generic [ref=e59]:
+      - heading "Trusted by 200,000+ UX professionals" [level=3] [ref=e60]
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - img [ref=e65]
+          - img [ref=e71]
+          - img [ref=e73]
+          - img [ref=e82]
+          - img [ref=e84]
+          - img [ref=e93]
+          - img [ref=e109]
+          - img [ref=e112]
+        - generic [ref=e118]:
+          - img [ref=e119]
+          - img [ref=e125]
+          - img [ref=e127]
+          - img [ref=e136]
+          - img [ref=e138]
+          - img [ref=e147]
+          - img [ref=e163]
+          - img [ref=e166]
+  - generic [ref=e175]:
+    - generic [ref=e176]: © 2013 - 2026 UXfolio LLC
+    - generic [ref=e177]:
+      - button "Light mode" [ref=e178] [cursor=pointer]:
+        - generic [ref=e179]: Light mode
+        - img [ref=e180]
+      - button "Dark mode" [ref=e182] [cursor=pointer]:
+        - generic [ref=e183]: Dark mode
+        - img [ref=e184]

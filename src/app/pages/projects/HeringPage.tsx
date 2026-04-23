@@ -1,7 +1,30 @@
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
-import heringVisual from "../../../imports/Frame1-1/17484fa76e68e016ea4f9cb7bf74dd4e285d830f.png";
 import type { ReactNode } from "react";
+
+import heringVisual from "../../../imports/Frame1-1/17484fa76e68e016ea4f9cb7bf74dd4e285d830f.png";
+import gifProduct1 from "../../../imports/hering/oaaNNAkpJq7bqjOO.gif";
+import gifProduct2 from "../../../imports/hering/RdDLiYxhVtq8129l.gif";
+import gifProduct3 from "../../../imports/hering/StxQdypoNoXRB8gX.gif";
+import imgWorkshop from "../../../imports/hering/i6ga78AkHyWJkehV.webp";
+import imgObjective from "../../../imports/hering/7sm1SPJUVhGbZSWy.webp";
+import imgBenchmarking from "../../../imports/hering/y8IoGmXu3zJT5RAT.webp";
+import imgComponents from "../../../imports/hering/IIr6Y0vwGf6vsJLr.webp";
+import imgInterviews from "../../../imports/hering/8QHTo8VqvbeXdCXd.webp";
+import imgQA from "../../../imports/hering/lWL6etJhCQOVlpBi.webp";
+import imgOpportunities from "../../../imports/hering/wRnXuj1Mpvwx9vIN.webp";
+import imgDesignSystem from "../../../imports/hering/CPArummYgQljE0qS.webp";
+import gifLayout1 from "../../../imports/hering/7EpP6wGaJnolaLHF.gif";
+import gifLayout2 from "../../../imports/hering/NlLH5g8oWT5VCFL0.gif";
+import gifLayout3 from "../../../imports/hering/oT3FZIyfnknzHdJg.gif";
+import gifLayout4 from "../../../imports/hering/HuvyV0VInBHqBfOu.gif";
+import imgBefore from "../../../imports/hering/4d7sGPQXBe5vHnon.webp";
+import imgAfter from "../../../imports/hering/7Of2PgRjjsX5NiCv.webp";
+import imgHandoff from "../../../imports/hering/ABH0W7Z3CZOzbTkH.webp";
+import imgABTest from "../../../imports/hering/kD2SbDW5cwg3z3Na.webp";
+import imgAnalysis from "../../../imports/hering/BoyHM7BcF4sr3b4R.webp";
+import imgResults from "../../../imports/hering/k4pGaHKaKCcj632J.webp";
+import imgConversion from "../../../imports/hering/jJ4D1DWjzZ5hXinL.webp";
 
 const metrics = [
   { value: "+0.2%", label: "Average Conversion Increase" },
@@ -72,9 +95,9 @@ const conversionRows = [
 function SectionHeading({ eyebrow, title }: { eyebrow?: string; title: string }) {
   return (
     <div className="flex flex-col gap-3">
-      {eyebrow ? (
+      {eyebrow && (
         <p className="text-[13px] font-light uppercase tracking-[0.28em] text-[#8b8b8b]">{eyebrow}</p>
-      ) : null}
+      )}
       <h2 className="max-w-[860px] text-[42px] font-light leading-[1.05] text-[#1f1f1f] md:text-[64px]">
         {title}
       </h2>
@@ -108,7 +131,6 @@ function TextCard({
   tone?: "light" | "dark";
 }) {
   const isDark = tone === "dark";
-
   return (
     <article
       className={`rounded-[24px] border p-7 md:p-9 ${
@@ -155,23 +177,30 @@ function ProcessTimeline() {
   );
 }
 
+function CaseImage({ src, alt = "", caption }: { src: string; alt?: string; caption?: string }) {
+  return (
+    <figure className="w-full">
+      <img src={src} alt={alt} className="w-full rounded-[16px] object-cover" />
+      {caption && (
+        <figcaption className="mt-3 text-[13px] font-light text-[#8b8b8b]">{caption}</figcaption>
+      )}
+    </figure>
+  );
+}
+
 export function HeringPage() {
   return (
     <PasswordGate>
       <main className="bg-[#f8f8f8] font-light text-[#1f1f1f]">
+
+        {/* Hero */}
         <section className="relative min-h-[540px] overflow-hidden">
-          <img
-            src={heringVisual}
-            alt=""
-            className="absolute inset-0 h-full w-full scale-[1.03] object-cover"
-          />
+          <img src={heringVisual} alt="" className="absolute inset-0 h-full w-full scale-[1.03] object-cover" />
           <div className="absolute inset-0 bg-black/60" />
           <ContentContainer className="relative flex min-h-[540px] items-end pb-16 pt-24 md:pb-20">
             <div className="max-w-[860px] text-white">
               <p className="text-[14px] font-light uppercase tracking-[0.28em] text-white/70">Hering</p>
-              <h1 className="mt-6 text-[54px] font-light leading-[1.02] md:text-[92px]">
-                Product Detail Page
-              </h1>
+              <h1 className="mt-6 text-[54px] font-light leading-[1.02] md:text-[92px]">Product Detail Page</h1>
               <p className="mt-8 max-w-[760px] text-[20px] font-light leading-[32px] text-white/86 md:text-[24px] md:leading-[38px]">
                 Redesigning and Analysis Test (A/B) - New Hering's Product Detail Page
               </p>
@@ -179,6 +208,7 @@ export function HeringPage() {
           </ContentContainer>
         </section>
 
+        {/* Intro */}
         <ContentContainer className="py-16 md:py-24">
           <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
             <div>
@@ -200,25 +230,28 @@ export function HeringPage() {
                 Grupo AZZAS 2154, a major player in Latin American retail.
               </p>
               <p>
-                I led the redesign of the Product Detail Page (PDP) on their e-commerce platform - an interface
+                I led the redesign of the Product Detail Page (PDP) on their e-commerce platform — an interface
                 critical for conversion. The project involved input from business, creative, and customer support teams.
               </p>
             </div>
           </div>
         </ContentContainer>
 
-        <section className="w-full overflow-hidden border-y border-[#e3e3e3] bg-[#ece6da]">
-          <img
-            src={heringVisual}
-            alt="Hering product detail page redesign across mobile and desktop screens"
-            className="w-full object-cover"
-          />
-        </section>
+        {/* Product GIFs */}
+        <ContentContainer className="pb-16 md:pb-24">
+          <div className="grid gap-4 md:grid-cols-3">
+            <CaseImage src={gifProduct1} alt="Hering PDP interaction — product gallery" />
+            <CaseImage src={gifProduct2} alt="Hering PDP interaction — size selection" />
+            <CaseImage src={gifProduct3} alt="Hering PDP interaction — add to cart" />
+          </div>
+        </ContentContainer>
 
-        <ContentContainer className="py-16 md:py-24">
+        {/* Metrics */}
+        <ContentContainer className="pb-16 md:pb-24">
           <MetricGrid />
         </ContentContainer>
 
+        {/* Overview */}
         <ContentContainer className="pb-16 md:pb-24">
           <div className="grid gap-4 md:grid-cols-4">
             {overview.map((item) => (
@@ -227,6 +260,7 @@ export function HeringPage() {
           </div>
         </ContentContainer>
 
+        {/* Process */}
         <ContentContainer className="py-16 md:py-24">
           <div className="flex flex-col gap-14">
             <SectionHeading title="My Design Process" />
@@ -234,181 +268,238 @@ export function HeringPage() {
           </div>
         </ContentContainer>
 
+        {/* 01 Business team alignment */}
         <ContentContainer className="py-16 md:py-24">
-          <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+          <div className="flex flex-col gap-12">
             <SectionHeading eyebrow="01" title="Business team alignment" />
-            <TextCard title="Collaborative workshop">
-              <p>
-                I led a collaborative workshop with key stakeholders from the Commercial, Strategy, and Customer Support
-                teams to gather insights and pain points related to the Product Detail Page (PDP).
-              </p>
-            </TextCard>
+            <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
+              <CaseImage src={imgWorkshop} alt="Workshop session with stakeholders" />
+              <TextCard title="Collaborative workshop">
+                <p>
+                  I led a collaborative workshop with key stakeholders from the Commercial, Strategy, and Customer
+                  Support teams to gather insights and pain points related to the Product Detail Page (PDP).
+                </p>
+              </TextCard>
+            </div>
           </div>
         </ContentContainer>
 
+        {/* 02 Objective definition */}
         <ContentContainer className="py-16 md:py-24">
-          <div className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:gap-14">
-            <div className="flex flex-col gap-8">
-              <SectionHeading eyebrow="02" title="Objective definition" />
-              <div className="flex flex-col gap-5 text-[18px] font-light leading-[31px] md:text-[20px] md:leading-[34px]">
-                <p>
-                  The main goals of the project were to reduce return rates and customer service contacts, while also
-                  increasing conversion by addressing inconsistencies on the PDP.
-                </p>
-                <p>
-                  We aimed to enhance the shopping experience by improving clarity in key information such as return
-                  policies, shipping, product details, and unavailable sizes.
-                </p>
-                <p>
-                  Additionally, we sought to deliver a more fluid navigation, better findability of product information,
-                  and clearer promotion visibility, ultimately helping users make more confident purchasing decisions.
-                </p>
-              </div>
-            </div>
-            <div className="grid gap-4 self-end">
-              {[
-                "Reduce returns and customer support contact around PDP information.",
-                "Increase conversion by reducing friction in product evaluation.",
-                "Improve the purchase experience with clearer content, states, and promotion visibility.",
-              ].map((item) => (
-                <div key={item} className="rounded-[24px] border border-[#e3e3e3] bg-[#1f1f1f] p-6 text-white">
-                  <p className="text-[18px] font-light leading-[28px] text-white/82">{item}</p>
+          <div className="flex flex-col gap-12">
+            <SectionHeading eyebrow="02" title="Objective definition" />
+            <div className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:gap-14">
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-5 text-[18px] font-light leading-[31px] md:text-[20px] md:leading-[34px]">
+                  <p>
+                    The main goals of the project were to reduce return rates and customer service contacts, while also
+                    increasing conversion by addressing inconsistencies on the PDP.
+                  </p>
+                  <p>
+                    We aimed to enhance the shopping experience by improving clarity in key information such as return
+                    policies, shipping, product details, and unavailable sizes.
+                  </p>
+                  <p>
+                    Additionally, we sought to deliver a more fluid navigation, better findability of product
+                    information, and clearer promotion visibility, ultimately helping users make more confident
+                    purchasing decisions.
+                  </p>
                 </div>
-              ))}
+                <div className="grid gap-4">
+                  {[
+                    "Reduce returns and customer support contact around PDP information.",
+                    "Increase conversion by reducing friction in product evaluation.",
+                    "Improve the purchase experience with clearer content, states, and promotion visibility.",
+                  ].map((item) => (
+                    <div key={item} className="rounded-[24px] border border-[#1f1f1f] bg-[#1f1f1f] p-6">
+                      <p className="text-[18px] font-light leading-[28px] text-white/82">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <CaseImage src={imgObjective} alt="Project objective mapping" />
             </div>
           </div>
         </ContentContainer>
 
+        {/* 03 Discovery */}
         <ContentContainer className="py-16 md:py-24">
           <div className="flex flex-col gap-12">
             <SectionHeading eyebrow="03" title="Discovery" />
-            <div className="grid gap-6 md:grid-cols-2">
-              <TextCard title="Benchmarking and Structure Analysis">
-                <p>
-                  I analyzed multiple competitor and reference e-commerces, mapping common structures and interface
-                  patterns. The goal was to identify which components were most aligned with the pain points and
-                  objectives raised during the workshop.
-                </p>
-              </TextCard>
-              <TextCard title="Component Breakdown and Usage Mapping">
-                <p>
-                  After identifying relevant components, I organized them into categories and described their specific
-                  functions and advantages. This allowed us to define which elements to prioritize in the redesign and
-                  how they could be adapted or evolved to match our business and user needs.
-                </p>
-              </TextCard>
-              <TextCard title="Interview Insights">
-                <p>
-                  Due to time constraints and the project's scope, we leveraged existing interview materials previously
-                  collected by other designers. We extracted key insights from this content, which guided several
-                  decisions in the first layout iteration.
-                </p>
-              </TextCard>
-              <TextCard title="Q&A feature">
-                <p>
-                  We also analyzed a Q&A feature available on the PDPs, which included real customer questions. To
-                  organize this data, I used ChatGPT to cluster comments by topic and rank them from most frequently
-                  mentioned to least mentioned.
-                </p>
-              </TextCard>
+            <div className="flex flex-col gap-10">
+              <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+                <CaseImage src={imgBenchmarking} alt="Benchmarking analysis" />
+                <TextCard title="Benchmarking and Structure Analysis">
+                  <p>
+                    I analyzed multiple competitor and reference e-commerces, mapping common structures and interface
+                    patterns. The goal was to identify which components were most aligned with the pain points and
+                    objectives raised during the workshop. This helped define a direction based on real, validated
+                    solutions already in use across the market.
+                  </p>
+                </TextCard>
+              </div>
+              <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-12">
+                <TextCard title="Component Breakdown and Usage Mapping">
+                  <p>
+                    After identifying relevant components, I organized them into categories and described their specific
+                    functions and advantages. This allowed us to define which elements to prioritize in the redesign and
+                    how they could be adapted or evolved to match our business and user needs.
+                  </p>
+                </TextCard>
+                <CaseImage src={imgComponents} alt="Component breakdown mapping" />
+              </div>
+              <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+                <CaseImage src={imgInterviews} alt="Interview insights analysis" />
+                <TextCard title="Interview Insights">
+                  <p>
+                    Due to time constraints and the project's scope, we leveraged existing interview materials
+                    previously collected by other designers. We extracted key insights from this content, which guided
+                    several decisions in the first layout iteration.
+                  </p>
+                </TextCard>
+              </div>
+              <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-12">
+                <TextCard title="Q&A feature">
+                  <p>
+                    We also analyzed a Q&A feature available on the PDPs, which included real customer questions. To
+                    organize this data, I used ChatGPT to cluster the comments by topic and rank them from most
+                    frequently mentioned to least mentioned. This process helped uncover key pain points and usage
+                    contexts, providing valuable insights that informed several visual and structural decisions in the
+                    redesign.
+                  </p>
+                </TextCard>
+                <CaseImage src={imgQA} alt="Q&A feature analysis" />
+              </div>
             </div>
           </div>
         </ContentContainer>
 
+        {/* Opportunities */}
         <ContentContainer className="py-16 md:py-24">
-          <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
-            <TextCard title="Potential design opportunities">
-              <p>
-                After mapping initial needs and identifying user pain points, we analyzed all collected insights to
-                define potential design opportunities. These were then aligned with the project's strategic goals.
-              </p>
-              <p>
-                We revisited each idea to revalidate priorities, ensuring we were focusing on the most impactful
-                changes. The goal was to guide design efforts toward solutions that directly addressed the business and
-                user needs raised at the beginning of the project.
-              </p>
-            </TextCard>
-            <div className="grid gap-4 md:grid-cols-2">
-              {opportunities.map((item) => (
-                <article key={item.label} className="rounded-[24px] border border-[#e3e3e3] bg-white/55 p-6">
-                  <div className="text-[48px] font-light leading-none text-[#1f1f1f]">{item.value}</div>
-                  <h3 className="mt-5 text-[21px] font-light leading-[1.25] text-[#1f1f1f]">{item.label}</h3>
-                  <p className="mt-4 text-[16px] font-light leading-[26px] text-[#8b8b8b]">{item.description}</p>
-                </article>
-              ))}
+          <div className="flex flex-col gap-12">
+            <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+              <TextCard title="Potential design opportunities">
+                <p>
+                  After mapping initial needs and identifying user pain points, we analyzed all collected insights to
+                  define potential design opportunities. These were then aligned with the project's strategic goals.
+                </p>
+                <p>
+                  We revisited each idea to revalidate priorities, ensuring we were focusing on the most impactful
+                  changes. The goal was to guide design efforts toward solutions that directly addressed the business
+                  and user needs raised at the beginning of the project.
+                </p>
+              </TextCard>
+              <div className="grid gap-4 md:grid-cols-2">
+                {opportunities.map((item) => (
+                  <article key={item.label} className="rounded-[24px] border border-[#e3e3e3] bg-white/55 p-6">
+                    <div className="text-[48px] font-light leading-none text-[#1f1f1f]">{item.value}</div>
+                    <h3 className="mt-5 text-[21px] font-light leading-[1.25] text-[#1f1f1f]">{item.label}</h3>
+                    <p className="mt-4 text-[16px] font-light leading-[26px] text-[#8b8b8b]">{item.description}</p>
+                  </article>
+                ))}
+              </div>
             </div>
+            <CaseImage src={imgOpportunities} alt="Design opportunities mapping" />
           </div>
         </ContentContainer>
 
+        {/* 04 Layout, Prototype, Handoff */}
         <ContentContainer className="py-16 md:py-24">
           <div className="flex flex-col gap-12">
             <SectionHeading eyebrow="04" title="Layout, Prototype, Handoff & Documentation" />
-            <div className="grid gap-6 md:grid-cols-2">
-              <TextCard title="Design System Hering">
-                <p>
-                  Hering already had an existing Design System developed by other teams, mainly focused on the mobile
-                  app. Throughout this project, we aligned our work with that system, using and validating existing
-                  components whenever possible.
-                </p>
-                <p>
-                  Because the web and app systems were managed separately, our goal was to bring consistency by adapting
-                  and reusing components rather than creating new ones from scratch.
-                </p>
-              </TextCard>
-              <TextCard title="Efficient Handoff and Implementation Success" tone="dark">
-                <p>
-                  We delivered a fully structured and highly detailed handoff, which resulted in only two follow-up
-                  meetings to clarify minor implementation questions.
-                </p>
-                <p>
-                  All scenarios, edge cases, component states, and usage details were carefully mapped, making the
-                  delivery easy to understand and highly actionable.
-                </p>
-              </TextCard>
+            <CaseImage src={imgDesignSystem} alt="Hering Design System reference" caption="Design System Hering — aligned with existing mobile app components" />
+            <TextCard title="Design System Hering">
+              <p>
+                Hering already had an existing Design System developed by other teams, mainly focused on the mobile
+                app. Throughout this project, we aligned our work with that system, using and validating existing
+                components whenever possible.
+              </p>
+              <p>
+                Because the web and app systems were managed separately, our goal was to bring consistency by adapting
+                and reusing components rather than creating new ones from scratch. We ensured that the visual and
+                functional decisions remained aligned with the app's design logic, maintaining coherence across
+                platforms and avoiding unnecessary divergence.
+              </p>
+            </TextCard>
+            <div className="grid gap-4 md:grid-cols-4">
+              <CaseImage src={gifLayout1} alt="Layout prototype — interaction 1" />
+              <CaseImage src={gifLayout2} alt="Layout prototype — interaction 2" />
+              <CaseImage src={gifLayout3} alt="Layout prototype — interaction 3" />
+              <CaseImage src={gifLayout4} alt="Layout prototype — interaction 4" />
             </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <figure>
+                <img src={imgBefore} alt="PDP — before redesign" className="w-full rounded-[16px]" />
+                <figcaption className="mt-3 text-[13px] font-light text-[#8b8b8b]">Before</figcaption>
+              </figure>
+              <figure>
+                <img src={imgAfter} alt="PDP — after redesign" className="w-full rounded-[16px]" />
+                <figcaption className="mt-3 text-[13px] font-light text-[#8b8b8b]">After</figcaption>
+              </figure>
+            </div>
+            <CaseImage src={imgHandoff} alt="Handoff documentation" />
+            <TextCard title="Efficient Handoff and Implementation Success" tone="dark">
+              <p>
+                We delivered a fully structured and highly detailed handoff, which resulted in only{" "}
+                <strong className="text-white">two follow-up meetings</strong> to clarify minor implementation
+                questions. The development team was able to implement the entire Product Detail Page in a very short
+                time frame — thanks to the clarity and completeness of the documentation.
+              </p>
+              <p>
+                All <strong className="text-white">scenarios, edge cases, component states, and usage details</strong>{" "}
+                were carefully mapped, making the delivery not only easy to understand but also highly actionable. The
+                dev team praised the quality of the handoff, highlighting how it reduced back-and-forth and helped
+                them deliver with <strong className="text-white">speed and high fidelity</strong>.
+              </p>
+            </TextCard>
           </div>
         </ContentContainer>
 
-        <section className="w-full overflow-hidden border-y border-[#e3e3e3] bg-[#ece6da]">
-          <img
-            src={heringVisual}
-            alt="Final Hering product detail page interface used as the project visual reference"
-            className="w-full object-cover"
-          />
-        </section>
-
+        {/* 05 A/B Test Planning */}
         <ContentContainer className="py-16 md:py-24">
           <div className="flex flex-col gap-12">
             <SectionHeading eyebrow="05" title="A/B Test Planning" />
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+              <CaseImage src={imgABTest} alt="A/B test planning documentation" />
               <TextCard title="Multivariate test">
                 <p>
-                  We started by defining our main hypothesis, the goal of the test, and what specific elements we wanted
-                  to evaluate. The experiment turned out to be a multivariate test, which was a valuable learning
-                  experience.
+                  We started by defining our <strong>main hypothesis</strong>, the{" "}
+                  <strong>goal of the test</strong>, and what specific elements we wanted to evaluate. The experiment
+                  turned out to be a <strong>multivariate test</strong>, which was a valuable learning experience —
+                  especially because, in the end, it produced <strong>biased data</strong> when comparing individual
+                  components.
                 </p>
                 <p>
-                  Despite the limitations, this test taught us important lessons about test scope, isolation of
-                  variables, and data interpretation for future conversion-focused validation.
+                  Despite the limitations, this test taught us important lessons about{" "}
+                  <strong>test scope, isolation of variables, and data interpretation</strong>. It was a crucial step
+                  in maturing our approach to A/B testing and conversion-focused validation.
                 </p>
               </TextCard>
+            </div>
+            <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-12">
               <TextCard title="Analysis and monitoring">
                 <p>
-                  Together with the analytics team, we tracked A/B test performance using GA4 and a custom dashboard
-                  created in partnership with an external analytics team.
+                  Together with the analytics team, we tracked A/B test performance using GA4 (Google Analytics) and
+                  a custom dashboard created in partnership with an external analytics team. The data collection was
+                  carried out between February 1st and 18th, and the results were analyzed between February 15th and
+                  22nd.
                 </p>
                 <p>
-                  The data collection was carried out between February 1 and 18, and the results were analyzed between
-                  February 15 and 22.
+                  This dashboard allowed us to monitor click events on key components, average page conversion rates,
+                  time on page, and drop-off rates, helping us understand how each variation performed and where
+                  users were engaging or dropping out.
                 </p>
               </TextCard>
+              <CaseImage src={imgAnalysis} alt="Analytics monitoring dashboard" />
             </div>
           </div>
         </ContentContainer>
 
+        {/* 06 Results & Impact */}
         <ContentContainer className="py-16 md:py-24">
           <div className="flex flex-col gap-12">
             <SectionHeading eyebrow="06" title="Results & Impact" />
+            <CaseImage src={imgResults} alt="A/B test results overview" />
             <MetricGrid />
             <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-14">
               <div className="overflow-hidden rounded-[24px] border border-[#e3e3e3] bg-white/55">
@@ -418,7 +509,7 @@ export function HeringPage() {
                       <th className="px-5 py-4 font-light">Device</th>
                       <th className="px-5 py-4 font-light">Version</th>
                       <th className="px-5 py-4 font-light">Sessions</th>
-                      <th className="px-5 py-4 font-light">Conversion</th>
+                      <th className="px-5 py-4 font-light">Conv.</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -435,55 +526,68 @@ export function HeringPage() {
               </div>
               <TextCard title="Conversion Impact and Experience Improvements">
                 <p>
-                  After launching the new Product Detail Page, version B delivered an average conversion increase of 0.2
-                  percentage points, reaching 2.3% compared to 2.1% in version A.
+                  After launching the new Product Detail Page, version B delivered an average conversion increase of{" "}
+                  <strong>0.2 percentage points</strong>, reaching 2.3% compared to 2.1% in version A.
+                </p>
+                <p>
+                  This uplift, while subtle, proved meaningful at scale, confirming that the adjustments positively
+                  impacted user behavior across all devices.
                 </p>
                 <p>
                   In parallel to the quantitative gains, we addressed several UX inconsistencies, including unclear
-                  return information, missing size states, and limited product visuals, which helped create a more fluid
-                  and trustworthy shopping experience.
+                  return information, missing size states, and limited product visuals, which helped create a more
+                  fluid and trustworthy shopping experience.
+                </p>
+              </TextCard>
+            </div>
+            <CaseImage src={imgConversion} alt="Conversion impact analysis" />
+          </div>
+        </ContentContainer>
+
+        {/* Key Learnings */}
+        <ContentContainer className="py-16 md:py-24">
+          <div className="flex flex-col gap-10">
+            <SectionHeading title="Key Learnings" />
+            <div className="grid gap-6 md:grid-cols-3">
+              <TextCard title="1. Key Learning">
+                <p>
+                  Although one of our initial goals was to reduce return rates and customer support demand, we did not
+                  observe significant improvement in these areas. We monitored the outcome closely and concluded that
+                  broader improvements across other parts of the journey would be necessary to impact these metrics.
+                </p>
+              </TextCard>
+              <TextCard title="2. A/B Testing Complexity">
+                <p>
+                  One of the most valuable learnings was understanding the limitations of multifactor A/B testing.
+                  While it allows for broad experimentation, it quickly becomes complex and highly biased if too many
+                  hypotheses are tested simultaneously. In future projects, a more effective approach would be to run
+                  smaller, more focused tests.
+                </p>
+              </TextCard>
+              <TextCard title="3. Analytics Alignment">
+                <p>
+                  Another key takeaway relates to data analysis via Google Analytics. Without solid documentation and
+                  defined KPIs from the start, aligning with analytics teams can become difficult later. This
+                  reinforced the importance of defining what to measure early, ensuring clarity on business impact
+                  and reducing rework during the analysis phase.
                 </p>
               </TextCard>
             </div>
           </div>
         </ContentContainer>
 
-        <ContentContainer className="py-16 md:py-24">
-          <div className="grid gap-6 md:grid-cols-3">
-            <TextCard title="1. Key learning">
-              <p>
-                Although one of our initial goals was to reduce return rates and customer support demand, we did not
-                observe significant improvement in these areas. Broader improvements across other parts of the journey
-                would be necessary to impact these metrics.
-              </p>
-            </TextCard>
-            <TextCard title="2. A/B Testing Complexity">
-              <p>
-                One of the most valuable learnings was understanding the limitations of multifactor A/B testing. In
-                future projects, a more effective approach would be to run smaller, more focused tests tied to clear
-                business goals.
-              </p>
-            </TextCard>
-            <TextCard title="3. Analytics Alignment">
-              <p>
-                Without solid documentation and defined KPIs from the start, aligning with analytics teams can become
-                difficult later. This reinforced the importance of defining what to measure early and reducing rework
-                during analysis.
-              </p>
-            </TextCard>
-          </div>
-        </ContentContainer>
-
+        {/* Closing */}
         <ContentContainer className="pb-8 pt-10 md:pb-12">
           <div className="rounded-[24px] border border-[#e3e3e3] bg-white/55 px-6 py-10 text-center">
             <h2 className="text-[26px] font-light leading-[1.2] text-[#1f1f1f]">
               Thank you for reading my case study!
             </h2>
-            <p className="mx-auto mt-4 max-w-[560px] text-[18px] font-light leading-[30px] text-[#1f1f1f]">
+            <p className="mx-auto mt-4 max-w-[560px] text-[18px] font-light leading-[30px] text-[#8b8b8b]">
               Want to work with me? Feel free to contact me or just say hello on my social media.
             </p>
           </div>
         </ContentContainer>
+
       </main>
     </PasswordGate>
   );
