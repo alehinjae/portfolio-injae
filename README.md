@@ -1,11 +1,33 @@
+# Alexandre In Jae | Portfolio
 
-  # Construir página responsiva
+Personal portfolio of Alexandre In Jae, Product Designer with 6+ years of experience crafting visually compelling, data-informed experiences for B2B, E-commerce and digital products.
 
-  This is a code bundle for Construir página responsiva. The original project is available at https://www.figma.com/design/W0llRp0YgJ3vqWK2jtnBoJ/Construir-p%C3%A1gina-responsiva.
+## Live site
 
-  ## Running the code
+[injae.me](https://injae.me)
 
-  Run `npm i` to install the dependencies.
+## Tech stack
 
-  Run `npm run dev` to start the development server.
-  
+- React 18
+- Vite 6
+- Tailwind CSS 4
+- Deployed to GitHub Pages via GitHub Actions
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Deploy
+
+Every push to `main` automatically builds and deploys to [injae.me](https://injae.me) via GitHub Actions.
+
+## SEO indexing
+
+Search engine indexing is currently **disabled**. To enable, remove the following line from `index.html`:
+
+```html
+<meta name="robots" content="noindex, nofollow" />
+```

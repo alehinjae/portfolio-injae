@@ -11,7 +11,17 @@
       "Bash(start microsoft-edge:http://localhost:5173)",
       "Bash(git init *)",
       "Bash(git remote *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh api *)",
+      "Bash(gh run *)",
+      "Bash(git commit *)",
+      "Bash(grep -E \"\\\\.\\(config|rc|json\\)$|tsconfig\")",
+      "Bash(npm list *)",
+      "Bash(pnpm install *)",
+      "Bash(cmd.exe /c \"pnpm install\")",
+      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm build *)"
     ]
   }
 }
