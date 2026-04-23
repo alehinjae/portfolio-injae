@@ -1,4 +1,5 @@
-import { HashRouter, Routes, Route } from "react-router";
+import { HashRouter, Routes, Route, useLocation } from "react-router";
+import { useEffect } from "react";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
@@ -7,9 +8,16 @@ import { ListerinePage } from "./pages/projects/ListerinePage";
 import { MaternityPage } from "./pages/projects/MaternityPage";
 import imgFooter from "../imports/Frame1-1/9d7b0a8aa2d5c323e61cab2d188db4402bad66e0.png";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 export default function App() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <div className="flex min-h-screen w-full flex-col bg-[#f8f8f8]">
         <Header />
 

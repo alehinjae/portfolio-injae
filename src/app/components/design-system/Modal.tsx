@@ -38,7 +38,7 @@ export function Modal({ open, children, onClose }: ModalProps) {
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[#f8f8f8]" />
       <div
         className={`relative z-10 mx-4 w-full max-w-[440px] rounded-[24px] bg-[#f8f8f8] p-8 transition-all duration-300 ease-out md:p-10 ${
           visible
