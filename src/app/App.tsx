@@ -6,6 +6,7 @@ import { About } from "./pages/About";
 import { HeringPage } from "./pages/projects/HeringPage";
 import { ListerinePage } from "./pages/projects/ListerinePage";
 import { MaternityPage } from "./pages/projects/MaternityPage";
+import { ScrollBar } from "./components/design-system/ScrollBar";
 import imgFooter from "../imports/Frame1-1/9d7b0a8aa2d5c323e61cab2d188db4402bad66e0.png";
 
 function ScrollToTop() {
@@ -18,6 +19,7 @@ export default function App() {
   return (
     <HashRouter>
       <ScrollToTop />
+      <ScrollBar />
       <div className="flex min-h-screen w-full flex-col bg-[#f8f8f8]">
         <Header />
 
