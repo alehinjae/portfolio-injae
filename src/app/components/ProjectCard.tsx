@@ -1,17 +1,15 @@
-import { Link } from "react-router";
-
 interface ProjectCardProps {
   image: string;
   title: string;
   subtitle: string;
-  to: string;
+  onClick: () => void;
 }
 
-export function ProjectCard({ image, title, subtitle, to }: ProjectCardProps) {
+export function ProjectCard({ image, title, subtitle, onClick }: ProjectCardProps) {
   return (
-    <Link
-      to={to}
-      className="group flex w-full flex-col items-start justify-end no-underline"
+    <button
+      onClick={onClick}
+      className="group flex w-full cursor-pointer flex-col items-start justify-end text-left"
     >
       <div className="relative w-full overflow-hidden rounded-[24px] aspect-[1188/594]">
         <img
@@ -28,6 +26,6 @@ export function ProjectCard({ image, title, subtitle, to }: ProjectCardProps) {
           {subtitle}
         </p>
       </div>
-    </Link>
+    </button>
   );
 }
