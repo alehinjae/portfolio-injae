@@ -15,15 +15,26 @@ export function PasswordGate({ children, onClose }: PasswordGateProps) {
   const [authenticated, setAuthenticated] = useState(
     () => sessionStorage.getItem(SESSION_KEY) === "true"
   );
+  const [modalOpen, setModalOpen] = useState(true);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
-  const handleClose = onClose ?? (() => window.history.back());
+  // closes modal with animation, then runs callback
+  function closeWithAnimation(callback: () => void) {
+    setModalOpen(false);
+    setTimeout(callback, 320);
+  }
+
+  function handleClose() {
+    closeWithAnimation(onClose ?? (() => window.history.back()));
+  }
 
   function handleSubmit() {
     if (value === CORRECT_PASSWORD) {
-      sessionStorage.setItem(SESSION_KEY, "true");
-      setAuthenticated(true);
+      closeWithAnimation(() => {
+        sessionStorage.setItem(SESSION_KEY, "true");
+        setAuthenticated(true);
+      });
     } else {
       setError("Incorrect password. Please try again.");
       setValue("");
@@ -37,7 +48,7 @@ export function PasswordGate({ children, onClose }: PasswordGateProps) {
   if (authenticated) return <>{children}</>;
 
   return (
-    <Modal open onClose={handleClose}>
+    <Modal open={modalOpen} onClose={handleClose}>
       <div className="flex flex-col gap-6 pt-8">
         <div className="flex flex-col gap-2">
           <h2 className="text-[28px] font-light leading-[1.2] text-black">
