@@ -83,14 +83,6 @@ const opportunities = [
   },
 ];
 
-const conversionRows = [
-  { device: "All devices", version: "A", sessions: "321,923", conversion: "2.1%" },
-  { device: "All devices", version: "B", sessions: "296,171", conversion: "2.3%" },
-  { device: "Mobile", version: "A", sessions: "256,999", conversion: "2.2%" },
-  { device: "Mobile", version: "B", sessions: "235,340", conversion: "2.4%" },
-  { device: "Desktop", version: "A", sessions: "62,143", conversion: "5.1%" },
-  { device: "Desktop", version: "B", sessions: "59,619", conversion: "5.4%" },
-];
 
 function SectionHeading({ eyebrow, title }: { eyebrow?: string; title: string }) {
   return (
@@ -305,17 +297,6 @@ export function HeringPage() {
                     purchasing decisions.
                   </p>
                 </div>
-                <div className="grid gap-4">
-                  {[
-                    "Reduce returns and customer support contact around PDP information.",
-                    "Increase conversion by reducing friction in product evaluation.",
-                    "Improve the purchase experience with clearer content, states, and promotion visibility.",
-                  ].map((item) => (
-                    <div key={item} className="rounded-[24px] border border-[#1f1f1f] bg-[#1f1f1f] p-6">
-                      <p className="text-[18px] font-light leading-[28px] text-white/82">{item}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
               <CaseImage src={imgObjective} alt="Project objective mapping" />
             </div>
@@ -501,45 +482,20 @@ export function HeringPage() {
             <SectionHeading eyebrow="06" title="Results & Impact" />
             <CaseImage src={imgResults} alt="A/B test results overview" />
             <MetricGrid />
-            <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-14">
-              <div className="overflow-hidden rounded-[24px] border border-[#e3e3e3] bg-white/55">
-                <table className="w-full text-left text-[15px] font-light text-[#1f1f1f]">
-                  <thead className="border-b border-[#e3e3e3] text-[#8b8b8b]">
-                    <tr>
-                      <th className="px-5 py-4 font-light">Device</th>
-                      <th className="px-5 py-4 font-light">Version</th>
-                      <th className="px-5 py-4 font-light">Sessions</th>
-                      <th className="px-5 py-4 font-light">Conv.</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {conversionRows.map((row, index) => (
-                      <tr key={`${row.device}-${row.version}`} className={index % 2 === 1 ? "bg-[#f1f1f1]" : ""}>
-                        <td className="px-5 py-4">{row.device}</td>
-                        <td className="px-5 py-4">{row.version}</td>
-                        <td className="px-5 py-4">{row.sessions}</td>
-                        <td className="px-5 py-4">{row.conversion}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <TextCard title="Conversion Impact and Experience Improvements">
-                <p>
-                  After launching the new Product Detail Page, version B delivered an average conversion increase of{" "}
-                  <strong>0.2 percentage points</strong>, reaching 2.3% compared to 2.1% in version A.
-                </p>
-                <p>
-                  This uplift, while subtle, proved meaningful at scale, confirming that the adjustments positively
-                  impacted user behavior across all devices.
-                </p>
-                <p>
-                  In parallel to the quantitative gains, we addressed several UX inconsistencies, including unclear
-                  return information, missing size states, and limited product visuals, which helped create a more
-                  fluid and trustworthy shopping experience.
-                </p>
-              </TextCard>
-            </div>
+            <TextCard title="Conversion Impact and Experience Improvements">
+              <p>
+                After launching the new Product Detail Page, version B delivered an average conversion increase of{" "}
+                <strong>0.2 percentage points</strong>, reaching 2.3% compared to 2.1% in version A.
+              </p>
+              <p>
+                This uplift, while subtle, proved meaningful at scale, confirming that the adjustments positively
+                impacted user behavior across all devices. In parallel to the quantitative gains, we addressed
+                several UX inconsistencies, including unclear return information, missing size states, and limited
+                product visuals, which helped create a more fluid and trustworthy shopping experience. Together,
+                these improvements not only supported our conversion goals but also enhanced the overall
+                decision-making journey for users.
+              </p>
+            </TextCard>
             <CaseImage src={imgConversion} alt="Conversion impact analysis" />
           </div>
         </ContentContainer>
