@@ -21,7 +21,8 @@
       "Bash(npm list *)",
       "Bash(pnpm install *)",
       "Bash(cmd.exe /c \"pnpm install\")",
-      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm build *)"
+      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm build *)",
+      "Bash(/c/Users/alein/AppData/Local/npm-cache/_npx/e6e0ed1aca658cae/node_modules/.bin/pnpm install *)"
     ]
   }
 }
