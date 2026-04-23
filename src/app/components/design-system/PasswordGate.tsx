@@ -8,14 +8,17 @@ const CORRECT_PASSWORD = "12345";
 
 interface PasswordGateProps {
   children: ReactNode;
+  onClose?: () => void;
 }
 
-export function PasswordGate({ children }: PasswordGateProps) {
+export function PasswordGate({ children, onClose }: PasswordGateProps) {
   const [authenticated, setAuthenticated] = useState(
     () => sessionStorage.getItem(SESSION_KEY) === "true"
   );
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
+
+  const handleClose = onClose ?? (() => window.history.back());
 
   function handleSubmit() {
     if (value === CORRECT_PASSWORD) {
@@ -34,8 +37,8 @@ export function PasswordGate({ children }: PasswordGateProps) {
   if (authenticated) return <>{children}</>;
 
   return (
-    <Modal open>
-      <div className="flex flex-col gap-6">
+    <Modal open onClose={handleClose}>
+      <div className="flex flex-col gap-6 pt-8">
         <div className="flex flex-col gap-2">
           <h2 className="text-[28px] font-light leading-[1.2] text-black">
             Protected content

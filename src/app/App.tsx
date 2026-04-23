@@ -10,16 +10,18 @@ import imgFooter from "../imports/Frame1-1/9d7b0a8aa2d5c323e61cab2d188db4402bad6
 export default function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen w-full bg-[#f8f8f8]">
+      <div className="flex min-h-screen w-full flex-col bg-[#f8f8f8]">
         <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects/hering" element={<HeringPage />} />
-          <Route path="/projects/listerine" element={<ListerinePage />} />
-          <Route path="/projects/maternity" element={<MaternityPage />} />
-        </Routes>
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects/hering" element={<HeringPage />} />
+            <Route path="/projects/listerine" element={<ListerinePage />} />
+            <Route path="/projects/maternity" element={<MaternityPage />} />
+          </Routes>
+        </div>
 
         <footer className="pt-20 md:pt-[120px]">
           <div className="relative w-full overflow-hidden aspect-[1920/669]">
