@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
 import type { ReactNode } from "react";
@@ -153,12 +154,10 @@ export function ListerinePage() {
       <main className="bg-white font-light text-[#1f1f1f]">
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
-        <section className="relative flex h-[500px] flex-col justify-end overflow-hidden">
-          <img src={listerineCover} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-black/55" />
-          <ContentContainer className="relative pb-12 md:pb-16">
+        <section className="flex h-[500px] flex-col justify-end bg-[#e8e8e8]">
+          <ContentContainer className="pb-12 md:pb-16">
             <motion.p
-              className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/60"
+              className="text-[13px] font-normal uppercase tracking-[0.1em] text-[#8b8b8b]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: ease, delay: 0.1 }}
@@ -166,7 +165,7 @@ export function ListerinePage() {
               Johnson &amp; Johnson
             </motion.p>
             <motion.h1
-              className="mt-4 text-[40px] font-light leading-tight text-white md:text-[64px]"
+              className="mt-4 text-[40px] font-light leading-tight text-[#1f1f1f] md:text-[64px]"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease }}
@@ -174,7 +173,7 @@ export function ListerinePage() {
               21 Day Campaign with LISTERINE®
             </motion.h1>
             <motion.p
-              className="mt-4 text-[18px] font-light text-white/80 md:text-[24px]"
+              className="mt-4 text-[18px] font-light text-[#5a5a5a] md:text-[24px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease, delay: 0.15 }}
@@ -182,11 +181,6 @@ export function ListerinePage() {
               How we transformed daily LISTERINE® routines into a 21-day engagement journey.
             </motion.p>
           </ContentContainer>
-        </section>
-
-        {/* ── Campaign visual ───────────────────────────────────────────────── */}
-        <section className="w-full overflow-hidden">
-          <img src={imgHero} alt="LISTERINE® 21 Day Campaign visual" className="w-full object-cover" />
         </section>
 
         {/* ── Intro ─────────────────────────────────────────────────────────── */}
@@ -211,6 +205,15 @@ export function ListerinePage() {
           </div>
         </ContentContainer>
 
+        {/* ── Campaign visual ───────────────────────────────────────────────── */}
+        <ContentContainer className="pb-16 md:pb-[120px]">
+          <FadeIn>
+            <div className="overflow-hidden rounded-[16px]">
+              <img src={imgHero} alt="LISTERINE® 21 Day Campaign visual" className="w-full object-cover" />
+            </div>
+          </FadeIn>
+        </ContentContainer>
+
         {/* ── Overview ──────────────────────────────────────────────────────── */}
         <ContentContainer className="pb-16 md:pb-[120px]">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-[72px]">
@@ -229,7 +232,7 @@ export function ListerinePage() {
 
         {/* ── Kickoff ───────────────────────────────────────────────────────── */}
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+          <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
             <CaseImage src={imgKickoff} alt="Campaign kickoff session" />
             <TextBlock label="Kickoff">
               <p>
@@ -272,7 +275,7 @@ export function ListerinePage() {
         {/* ── Client suggestion + Sprint ────────────────────────────────────── */}
         <ContentContainer className="py-16 md:py-[120px]">
           <div className="flex flex-col gap-16">
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
+            <div className="grid gap-10 md:grid-cols-[1.8fr_1fr] md:gap-[72px] md:items-start">
               <TextBlock label="Client suggestion">
                 <p>
                   As part of the collaboration process with the client, we received an initial idea of the campaign
@@ -281,7 +284,7 @@ export function ListerinePage() {
               </TextBlock>
               <CaseImage src={imgClientSuggestion} alt="Client wireframe suggestion" caption="Suggestion sent by client" />
             </div>
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
               <CaseImage src={imgSprintPlanner} alt="Sprint planner schedule" caption="Planner of schedule" />
               <TextBlock label="Initiating the Sprint">
                 <p>
@@ -330,7 +333,7 @@ export function ListerinePage() {
                   use them as references while crafting our campaign.
                 </p>
               </TextBlock>
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+              <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
                 <CaseImage src={imgStages} alt="Stages the day mechanics" aspect="aspect-[4/3]" />
                 <TextBlock label="Stages the day">
                   <p>
@@ -342,7 +345,7 @@ export function ListerinePage() {
                   </p>
                 </TextBlock>
               </div>
-              <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
+              <div className="grid gap-10 md:grid-cols-[1.8fr_1fr] md:gap-[72px] md:items-start">
                 <TextBlock label="Daily messages">
                   <p>
                     In this campaign, there is a proposal for an interactive calendar, where participants would{" "}
@@ -354,7 +357,7 @@ export function ListerinePage() {
                 </TextBlock>
                 <CaseImage src={imgDailyMessages} alt="Daily messages concept" aspect="aspect-[4/3]" />
               </div>
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+              <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
                 <CaseImage src={imgClearlyProcess} alt="Clear process communication" aspect="aspect-[4/3]" />
                 <TextBlock label="Clearly process">
                   <p>
@@ -423,7 +426,7 @@ export function ListerinePage() {
         <ContentContainer className="py-16 md:py-[120px]">
           <div className="flex flex-col gap-16">
             <SectionHeading eyebrow="03" title="Campaign mechanics" />
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
               <CaseImage src={imgMechanicsDiscussion} alt="Discussing mechanics with client" caption="Discussing the promotion mechanics with the client" aspect="aspect-[4/3]" />
               <TextBlock label="Promotion rules">
                 <p>
@@ -435,7 +438,7 @@ export function ListerinePage() {
                 <p><strong className="font-normal text-[#1f1f1f]">3.</strong> You registered 3 receipts → spin the wheel <strong className="font-normal text-[#1f1f1f]">3 times per day.</strong></p>
               </TextBlock>
             </div>
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
+            <div className="grid gap-8 md:grid-cols-[1.6fr_1fr_1fr] md:gap-10 md:items-start">
               <TextBlock label="Mechanic approved">
                 <p>
                   The mechanics were approved, with the{" "}
@@ -449,10 +452,8 @@ export function ListerinePage() {
                   with a button for the person to participate in the promotion on the selected day.
                 </p>
               </TextBlock>
-              <div className="flex flex-col gap-4">
-                <CaseImage src={imgMechanicStudies} alt="Mechanic studies" caption="Mechanic studies" aspect="aspect-[4/3]" />
-                <CaseImage src={imgMechanicApproved} alt="Mechanic approved" caption="Mechanic approved by both the client and the tech team" aspect="aspect-[4/3]" />
-              </div>
+              <CaseImage src={imgMechanicStudies} alt="Mechanic studies" caption="Mechanic studies" aspect="aspect-[4/3]" />
+              <CaseImage src={imgMechanicApproved} alt="Mechanic approved" caption="Approved by client and tech team" aspect="aspect-[4/3]" />
             </div>
           </div>
         </ContentContainer>
@@ -470,7 +471,7 @@ export function ListerinePage() {
                 </p>
               </TextBlock>
               <CaseImage src={imgLayoutComponents} alt="Layout components" />
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+              <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
                 <CaseImage src={imgStyleGuide} alt="Style guide" aspect="aspect-[4/3]" />
                 <TextBlock label="Style guide">
                   <p>
@@ -504,7 +505,7 @@ export function ListerinePage() {
                 insights.
               </p>
             </TextBlock>
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
+            <div className="grid gap-10 md:grid-cols-[1.8fr_1fr] md:gap-[72px] md:items-start">
               <CaseImage src={imgPMApproval} alt="PM approval comments" caption="Comments — Project Manager" aspect="aspect-[4/3]" />
               <DarkCard title="Approved with modifications">
                 <p>
@@ -525,8 +526,7 @@ export function ListerinePage() {
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="06" title="Results" />
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-                <CaseImage src={imgYoutube} alt="YouTube community comments" caption="Comments on one of the videos explaining the campaign" aspect="aspect-[4/3]" />
+              <div className="grid gap-10 md:grid-cols-2 md:gap-[72px] md:items-start">
                 <TextBlock label="Youtube Community">
                   <p>
                     The project achieved success by{" "}
@@ -536,16 +536,20 @@ export function ListerinePage() {
                     Participants became enthusiastic advocates for the brand, sharing their experiences on social media
                     and creating informative content to help others win the prize.
                   </p>
+                  <p>
+                    This resulted in significant organic reach, increased registrations, and website traffic, while
+                    strengthening the bond between the brand and its followers. The project created an engaging atmosphere
+                    and built a base of loyal and enthusiastic fans.
+                  </p>
                 </TextBlock>
+                <CaseImage src={imgYoutube} alt="YouTube community comments" caption="Comments on one of the videos explaining the campaign" aspect="aspect-[4/3]" />
               </div>
-              <CaseImage src={imgVideos} alt="Campaign videos shared by participants" caption="Many other videos shared and created by people about the campaign" />
-              <TextBlock label="Strengthening Bonds with Organic Reach">
-                <p>
-                  This resulted in significant organic reach, increased registrations, and website traffic, while
-                  strengthening the bond between the brand and its followers. The project created an engaging atmosphere
-                  and built a base of loyal and enthusiastic fans.
-                </p>
-              </TextBlock>
+              <FadeIn>
+                <div className="overflow-hidden rounded-[16px]" style={{ maxHeight: "480px" }}>
+                  <img src={imgVideos} alt="Campaign videos shared by participants" className="w-full object-cover object-top" />
+                </div>
+                <p className="mt-3 text-[13px] font-light text-[#b3b3b3]">Many other videos shared and created by people about the campaign</p>
+              </FadeIn>
             </div>
           </ContentContainer>
         </section>
@@ -576,6 +580,11 @@ export function ListerinePage() {
               <p className="mx-auto max-w-[560px] text-[16px] font-light leading-relaxed text-[#5a5a5a]">
                 Want to work together? Feel free to reach out or say hello on my social media.
               </p>
+              <Link to="/projects/maternity">
+                <button className="cursor-pointer rounded-full bg-[#1f1f1f] px-6 py-3 text-[16px] font-normal text-white transition-opacity hover:opacity-80">
+                  Next project
+                </button>
+              </Link>
             </div>
           </FadeUp>
         </ContentContainer>
