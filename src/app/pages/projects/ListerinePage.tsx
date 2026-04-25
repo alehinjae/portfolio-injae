@@ -5,7 +5,7 @@ import { ContentContainer } from "../../components/design-system/ContentContaine
 import type { ReactNode } from "react";
 
 import listerineCover from "../../../imports/Frame1-1/4856bf47df4169cdcafa182864346bc9a5a04584.png";
-import imgHeroBg from "../../../imports/listerine/hero-bg.webp";
+import imgHeroBg from "../../../imports/listerine/hero-bg.png";
 import imgHero from "../../../imports/listerine/Xxs6AIQpRBYZvW9F.webp";
 import imgKickoff from "../../../imports/listerine/R5eKPM8XnIZuE6PJ.png";
 import imgClientSuggestion from "../../../imports/listerine/uCm0KlGG1rXcekqS.png";
@@ -158,9 +158,9 @@ export function ListerinePage() {
           <img
             src={imgHeroBg}
             alt=""
-            className="absolute right-0 top-0 h-full w-auto object-cover object-left pointer-events-none"
+            className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#035f64] via-[#035f64]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#035f64]/90 via-[#035f64]/50 to-transparent" />
           <ContentContainer className="relative pb-12 md:pb-16">
             <motion.p
               className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/60"
