@@ -1,0 +1,156 @@
+/* Toggle button */
+.pf-review-toggle {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  z-index: 2147483646 !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: #1f1f1f !important;
+  color: white !important;
+  font-size: 20px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.pf-review-toggle:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.pf-review-toggle.pf-active {
+  background: #dc2626 !important;
+  animation: pf-pulse 1.8s infinite !important;
+}
+
+@keyframes pf-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45); }
+  50%       { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+}
+
+/* Cursor mode */
+.pf-mode *:not(.pf-review-toggle):not(.pf-comment-popup):not(.pf-comment-popup *) {
+  cursor: crosshair !important;
+}
+
+/* Element highlight */
+.pf-highlight {
+  outline: 2px solid #dc2626 !important;
+  outline-offset: 2px !important;
+}
+
+/* Comment popup */
+.pf-comment-popup {
+  position: absolute !important;
+  z-index: 2147483647 !important;
+  background: #fff !important;
+  border: 1px solid #e3e3e3 !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+  width: 300px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16) !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  color: #1f1f1f !important;
+  box-sizing: border-box !important;
+}
+
+.pf-popup-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.pf-popup-tag {
+  font-family: monospace !important;
+  font-size: 11px !important;
+  background: #f5f5f5 !important;
+  color: #5a5a5a !important;
+  padding: 3px 7px !important;
+  border-radius: 5px !important;
+  max-width: 220px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+}
+
+.pf-popup-x {
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  color: #b3b3b3 !important;
+  font-size: 14px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.pf-popup-ctx {
+  font-size: 12px !important;
+  color: #8b8b8b !important;
+  font-style: italic !important;
+  margin: 0 0 10px !important;
+  line-height: 1.4 !important;
+}
+
+.pf-popup-input {
+  width: 100% !important;
+  border: 1px solid #e3e3e3 !important;
+  border-radius: 8px !important;
+  padding: 9px 10px !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  resize: none !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  color: #1f1f1f !important;
+  background: #fff !important;
+  transition: border-color 0.15s !important;
+}
+
+.pf-popup-input:focus {
+  border-color: #1f1f1f !important;
+}
+
+.pf-popup-actions {
+  display: flex !important;
+  gap: 8px !important;
+  margin-top: 10px !important;
+  justify-content: flex-end !important;
+}
+
+.pf-popup-cancel {
+  border: 1px solid #e3e3e3 !important;
+  background: #fff !important;
+  border-radius: 20px !important;
+  padding: 7px 14px !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  color: #5a5a5a !important;
+}
+
+.pf-popup-save {
+  border: none !important;
+  background: #1f1f1f !important;
+  color: #fff !important;
+  border-radius: 20px !important;
+  padding: 7px 16px !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+}
+
+.pf-popup-saved {
+  text-align: center !important;
+  color: #16a34a !important;
+  font-size: 14px !important;
+  padding: 12px 0 !important;
+}
