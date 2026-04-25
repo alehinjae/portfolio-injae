@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
 
-import heringVisual from "../../../imports/Frame1-1/17484fa76e68e016ea4f9cb7bf74dd4e285d830f.png";
+import heringVisual from "../../../imports/hering/hero-hering.png";
 import gifProduct1 from "../../../imports/hering/oaaNNAkpJq7bqjOO.gif";
 import gifProduct2 from "../../../imports/hering/RdDLiYxhVtq8129l.gif";
 import gifProduct3 from "../../../imports/hering/StxQdypoNoXRB8gX.gif";
@@ -18,8 +18,6 @@ import gifLayout1 from "../../../imports/hering/7EpP6wGaJnolaLHF.gif";
 import gifLayout2 from "../../../imports/hering/NlLH5g8oWT5VCFL0.gif";
 import gifLayout3 from "../../../imports/hering/oT3FZIyfnknzHdJg.gif";
 import gifLayout4 from "../../../imports/hering/HuvyV0VInBHqBfOu.gif";
-import imgBefore from "../../../imports/hering/4d7sGPQXBe5vHnon.webp";
-import imgAfter from "../../../imports/hering/7Of2PgRjjsX5NiCv.webp";
 import imgHandoff from "../../../imports/hering/ABH0W7Z3CZOzbTkH.webp";
 import imgABTest from "../../../imports/hering/kD2SbDW5cwg3z3Na.webp";
 import imgAnalysis from "../../../imports/hering/BoyHM7BcF4sr3b4R.webp";
@@ -101,17 +99,31 @@ function ExecutionTabs() {
   const [activeTab, setActiveTab] = useState(TAB_SECTIONS[0].id);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
+  const mobileRowRef = useRef<HTMLDivElement>(null);
+  const thresholdRef = useRef<number>(0);
 
-  // Detect when tabs reach top of viewport
+  // Sticky detection via scroll + hysteresis:
+  // - Enter compact at threshold + 24px (buffer prevents triggering at the exact edge)
+  // - Exit compact only when scrolled back to threshold (one-way dead zone)
+  // The tab bar is always position:sticky so the position type never changes,
+  // eliminating the layout-shift feedback loop entirely.
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
-    const obs = new IntersectionObserver(([e]) => setIsSticky(!e.isIntersecting), { threshold: 0 });
-    obs.observe(sentinel);
-    return () => obs.disconnect();
+    thresholdRef.current = sentinel.getBoundingClientRect().top + window.scrollY;
+    const ENTER = 24;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setIsSticky(prev => {
+        if (!prev && y > thresholdRef.current + ENTER) return true;
+        if (prev && y <= thresholdRef.current) return false;
+        return prev;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll spy: update active tab based on which section is in view
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     TAB_SECTIONS.forEach(({ id }) => {
@@ -126,6 +138,14 @@ function ExecutionTabs() {
     });
     return () => observers.forEach((o) => o.disconnect());
   }, []);
+
+  // Auto-scroll active tab into view on mobile
+  useEffect(() => {
+    const row = mobileRowRef.current;
+    if (!row) return;
+    const active = row.querySelector<HTMLElement>('[aria-current="true"]');
+    active?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [activeTab]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -145,12 +165,42 @@ function ExecutionTabs() {
       <div
         ref={tabsRef}
         className={[
-          "z-40 w-full transition-all duration-300",
-          isSticky ? "sticky border-b border-[#e3e3e3] bg-white/95 shadow-sm backdrop-blur-md" : "",
+          "sticky z-40 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
+          isSticky ? "border-b border-[#e3e3e3] bg-white/95 shadow-sm backdrop-blur-md" : "border-b border-transparent",
         ].join(" ")}
-        style={isSticky ? { top: "calc(var(--header-height, 72px) * var(--header-visible, 1))" } : undefined}
+        style={{ top: "calc(var(--header-height, 72px) * var(--header-visible, 1))" }}
       >
-        <div className="grid grid-cols-2 overflow-x-auto md:grid-cols-3 lg:grid-cols-6">
+        {/* Mobile: horizontal scroll row */}
+        <div
+          ref={mobileRowRef}
+          className="flex overflow-x-auto md:hidden [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {TAB_SECTIONS.map(({ label, id }) => {
+            const active = activeTab === id;
+            return (
+              <button
+                key={id}
+                aria-current={active ? "true" : undefined}
+                onClick={() => scrollTo(id)}
+                className={[
+                  "flex-shrink-0 cursor-pointer whitespace-nowrap font-normal transition-all duration-200",
+                  isSticky
+                    ? "px-4 py-[8px] text-[9px] uppercase tracking-[0.09em]"
+                    : "px-5 py-[12px] text-[11px] uppercase tracking-[0.07em]",
+                  active
+                    ? "border-b-2 border-[#1f1f1f] text-[#1f1f1f]"
+                    : "border-b border-[#d9d9d9] text-[#b3b3b3]",
+                ].join(" ")}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Desktop: constrained grid */}
+        <div className="mx-auto hidden w-full max-w-[1188px] px-5 md:grid md:grid-cols-3 md:px-8 lg:grid-cols-6">
           {TAB_SECTIONS.map(({ label, id }, i) => {
             const active = activeTab === id;
             return (
@@ -161,7 +211,7 @@ function ExecutionTabs() {
                 className={[
                   "cursor-pointer text-left font-normal transition-all duration-200",
                   isSticky
-                    ? "px-5 py-[10px] text-[11px] uppercase tracking-[0.08em]"
+                    ? "px-5 py-[14px] text-[11px] uppercase tracking-[0.08em]"
                     : "px-8 py-6 text-[18px]",
                   active
                     ? "border-b-2 border-[#1f1f1f] text-[#1f1f1f]"
@@ -316,152 +366,133 @@ export function HeringPage() {
         <ExecutionTabs />
 
         {/* ── Stakeholder Alignment ─────────────────────────────────────────── */}
-        <section
-          id="stakeholder-alignment"
-          className="flex flex-col overflow-hidden py-16 md:flex-row md:gap-[72px] md:py-[120px] md:pl-[142px]"
-        >
-          <FadeUp
-            delay={0}
-            className="flex w-full shrink-0 flex-col gap-8 px-5 pb-10 md:w-[337px] md:px-0 md:pb-0"
-          >
-            <h2 className="text-[36px] font-light leading-tight text-[#1f1f1f] md:text-[56px]">
-              Stakeholder Alignment
-            </h2>
-            <p className="text-[16px] font-light leading-relaxed text-[#1f1f1f]">
-              I facilitated a strategic workshop using FigJam to synchronize insights from Commercial,
-              Strategy, and Support teams, mapping business-critical pain points for the new PDP
-              experience.
-            </p>
-          </FadeUp>
-          <FadeIn delay={0.2} className="relative min-h-[280px] flex-1 overflow-hidden md:min-h-0">
-            <img
-              src={imgWorkshop}
-              alt="Workshop session with stakeholders"
-              className="h-full w-full object-cover"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{ background: "linear-gradient(to left, white 0%, rgba(255,255,255,0) 50%)" }}
-            />
-          </FadeIn>
+        <section id="stakeholder-alignment">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-start">
+              <FadeUp delay={0} className="flex flex-col gap-8">
+                <h2 className="text-[36px] font-light leading-tight text-[#1f1f1f] md:text-[56px]">
+                  Stakeholder Alignment
+                </h2>
+                <p className="text-[16px] font-light leading-relaxed text-[#1f1f1f]">
+                  I facilitated a strategic workshop using FigJam to synchronize insights from Commercial,
+                  Strategy, and Support teams, mapping business-critical pain points for the new PDP
+                  experience.
+                </p>
+              </FadeUp>
+              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                <img
+                  src={imgWorkshop}
+                  alt="Workshop session with stakeholders"
+                  className="w-full object-cover"
+                />
+              </FadeIn>
+            </div>
+          </ContentContainer>
         </section>
 
         {/* ── Dark Section: Strategic Definition + Insights & Research 1 ──── */}
-        <section className="w-full bg-[#1f1f1f] px-5 py-16 md:px-[142px] md:pt-[142px] md:pb-[200px]">
-          <div className="flex flex-col gap-16 md:gap-[142px]">
+        <section className="w-full bg-[#1f1f1f]">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16 md:gap-[120px]">
 
-            {/* Strategic Definition */}
-            <div id="strategic-definition" className="flex flex-col gap-10 md:flex-row md:items-center md:gap-[72px]">
-              <FadeUp delay={0} className="flex w-full shrink-0 flex-col gap-8 md:w-[337px]">
-                <h2 className="text-[36px] font-light leading-tight text-white md:text-[56px]">
-                  Strategic Definition
-                </h2>
-                <p className="text-[16px] font-normal leading-relaxed text-white">
-                  FigJam workshop with Commercial, Strategy, and Support teams was essential to
-                  uncover critical pain points and align on the project's North Star.
-                </p>
-                <p className="text-[16px] font-light leading-relaxed text-[#757575]">
-                  We defined a strategic roadmap focused on boosting conversion and reducing return
-                  rates by improving stock visibility and information clarity, ensuring a
-                  high-performance experience for the new Hering PDP.
-                </p>
-              </FadeUp>
-              <FadeIn
-                delay={0.2}
-                className="min-w-0 flex-1 overflow-hidden rounded-[16px] opacity-60"
-              >
-                <img
-                  src={imgObjective}
-                  alt="Strategic definition roadmap"
-                  className="h-full w-full object-cover"
-                />
-              </FadeIn>
-            </div>
+              {/* Strategic Definition */}
+              <div id="strategic-definition" className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-center">
+                <FadeUp delay={0} className="flex flex-col gap-8">
+                  <h2 className="text-[36px] font-light leading-tight text-white md:text-[56px]">
+                    Strategic Definition
+                  </h2>
+                  <p className="text-[16px] font-normal leading-relaxed text-white">
+                    FigJam workshop with Commercial, Strategy, and Support teams was essential to
+                    uncover critical pain points and align on the project's North Star.
+                  </p>
+                  <p className="text-[16px] font-light leading-relaxed text-[#757575]">
+                    We defined a strategic roadmap focused on boosting conversion and reducing return
+                    rates by improving stock visibility and information clarity, ensuring a
+                    high-performance experience for the new Hering PDP.
+                  </p>
+                </FadeUp>
+                <FadeIn delay={0.2} className="overflow-hidden rounded-[16px] opacity-60">
+                  <img
+                    src={imgObjective}
+                    alt="Strategic definition roadmap"
+                    className="w-full object-cover"
+                  />
+                </FadeIn>
+              </div>
 
-            {/* Insights & Research 1 */}
-            <div className="flex flex-col gap-10 md:flex-row-reverse md:items-center md:gap-[72px]">
-              <FadeUp delay={0} className="flex w-full shrink-0 flex-col gap-8 md:w-[337px]">
-                <h2 className="text-[36px] font-light leading-tight text-white md:text-[56px]">
-                  Insights &amp; Research
-                </h2>
-                <div className="flex flex-col gap-6">
-                  <div>
-                    <p className="text-[20px] font-normal leading-snug text-white md:text-[24px]">
-                      Benchmarking &amp; Analysis.
-                    </p>
-                    <p className="mt-2 text-[16px] font-light leading-relaxed text-[#757575]">
-                      I mapped competitor patterns and interface structures to align the redesign with
-                      market standards. This research ensured our strategic direction was grounded in
-                      validated industry solutions and user expectations.
-                    </p>
+              {/* Insights & Research 1 */}
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-16 md:items-center">
+                <FadeIn delay={0.2} className="overflow-hidden rounded-[16px] opacity-60">
+                  <img
+                    src={imgBenchmarking}
+                    alt="Benchmarking and research"
+                    className="w-full object-cover"
+                  />
+                </FadeIn>
+                <FadeUp delay={0} className="flex flex-col gap-8">
+                  <h2 className="text-[36px] font-light leading-tight text-white md:text-[56px]">
+                    Insights &amp; Research
+                  </h2>
+                  <div className="flex flex-col gap-6">
+                    <div>
+                      <p className="text-[20px] font-normal leading-snug text-white md:text-[24px]">
+                        Benchmarking &amp; Analysis.
+                      </p>
+                      <p className="mt-2 text-[16px] font-light leading-relaxed text-[#757575]">
+                        I mapped competitor patterns and interface structures to align the redesign with
+                        market standards. This research ensured our strategic direction was grounded in
+                        validated industry solutions and user expectations.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[20px] font-normal leading-snug text-white md:text-[24px]">
+                        Component Architecture.
+                      </p>
+                      <p className="mt-2 text-[16px] font-light leading-relaxed text-[#757575]">
+                        I categorized and mapped UI elements to prioritize the most impactful features
+                        for the redesign. This breakdown allowed us to evolve components for better
+                        scalability, balancing business goals with user needs.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[20px] font-normal leading-snug text-white md:text-[24px]">
-                      Component Architecture.
-                    </p>
-                    <p className="mt-2 text-[16px] font-light leading-relaxed text-[#757575]">
-                      I categorized and mapped UI elements to prioritize the most impactful features
-                      for the redesign. This breakdown allowed us to evolve components for better
-                      scalability, balancing business goals with user needs.
-                    </p>
-                  </div>
-                </div>
-              </FadeUp>
-              <FadeIn
-                delay={0.2}
-                className="min-w-0 flex-1 overflow-hidden rounded-[16px] opacity-60"
-              >
-                <img
-                  src={imgBenchmarking}
-                  alt="Benchmarking and research"
-                  className="h-full w-full object-cover"
-                />
-              </FadeIn>
-            </div>
+                </FadeUp>
+              </div>
 
-          </div>
+            </div>
+          </ContentContainer>
         </section>
 
         {/* ── Insights & Research 2 ─────────────────────────────────────────── */}
-        <section
-          id="insights-research"
-          className="flex flex-col overflow-hidden py-16 md:flex-row md:gap-[72px] md:py-[120px] md:pl-[142px]"
-        >
-          <FadeUp
-            delay={0}
-            className="flex w-full shrink-0 flex-col gap-8 px-5 pb-10 md:w-[337px] md:px-0 md:pb-0"
-          >
-            <h2 className="text-[36px] font-light leading-tight text-[#1f1f1f] md:text-[56px]">
-              Insights &amp; Research 2
-            </h2>
-            <div className="flex flex-col gap-4">
-              <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                Interview Insights.
-              </p>
-              <p className="text-[16px] font-light leading-relaxed text-[#757575]">
-                Due to time constraints and the project's scope, we leveraged existing interview
-                materials previously collected by other designers.
-              </p>
-              <p className="text-[16px] font-light leading-relaxed text-[#757575]">
-                We extracted key insights from this content, which guided several decisions in the
-                first layout iteration.
-              </p>
+        <section id="insights-research">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-start">
+              <FadeUp delay={0} className="flex flex-col gap-8">
+                <h2 className="text-[36px] font-light leading-tight text-[#1f1f1f] md:text-[56px]">
+                  Insights &amp; Research 2
+                </h2>
+                <div className="flex flex-col gap-4">
+                  <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
+                    Interview Insights.
+                  </p>
+                  <p className="text-[16px] font-light leading-relaxed text-[#757575]">
+                    Due to time constraints and the project's scope, we leveraged existing interview
+                    materials previously collected by other designers.
+                  </p>
+                  <p className="text-[16px] font-light leading-relaxed text-[#757575]">
+                    We extracted key insights from this content, which guided several decisions in the
+                    first layout iteration.
+                  </p>
+                </div>
+              </FadeUp>
+              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                <img
+                  src={imgInterviews}
+                  alt="Interview insights"
+                  className="w-full object-cover"
+                />
+              </FadeIn>
             </div>
-          </FadeUp>
-          <FadeIn
-            delay={0.2}
-            className="relative flex-1 overflow-hidden px-5 md:px-4"
-          >
-            <img
-              src={imgInterviews}
-              alt="Interview insights"
-              className="w-full rounded-[16px] object-cover"
-            />
-            <div
-              className="pointer-events-none absolute bottom-0 left-5 right-5 h-32 md:left-4 md:right-4"
-              style={{ background: "linear-gradient(to top, white 0%, rgba(255,255,255,0) 100%)" }}
-            />
-          </FadeIn>
+          </ContentContainer>
         </section>
 
         <Divider />
@@ -481,8 +512,8 @@ export function HeringPage() {
                   address user doubts and friction.
                 </p>
               </div>
-              <FadeIn delay={0.1} className="overflow-hidden rounded-[16px] opacity-80">
-                <img src={imgQA} alt="AI-driven Q&A analysis" className="w-full" />
+              <FadeIn delay={0.1} className="h-[280px] overflow-hidden rounded-[16px] opacity-80">
+                <img src={imgQA} alt="AI-driven Q&A analysis" className="h-full w-full object-cover" />
               </FadeIn>
             </FadeUp>
             <FadeUp delay={0.15} className="flex flex-col gap-8">
@@ -496,11 +527,11 @@ export function HeringPage() {
                   technical feasibility, business goals, and real user needs.
                 </p>
               </div>
-              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px] opacity-80">
+              <FadeIn delay={0.2} className="h-[280px] overflow-hidden rounded-[16px] opacity-80">
                 <img
                   src={imgOpportunities}
                   alt="Prioritization and opportunity mapping"
-                  className="w-full"
+                  className="h-full w-full object-cover"
                 />
               </FadeIn>
             </FadeUp>
@@ -558,52 +589,43 @@ export function HeringPage() {
         <Divider />
 
         {/* ── Design System Hering ──────────────────────────────────────────── */}
-        <section className="flex flex-col overflow-hidden py-16 md:flex-row md:gap-[72px] md:py-[120px] md:pl-[142px]">
-          <FadeUp
-            delay={0}
-            className="flex w-full shrink-0 flex-col gap-8 px-5 pb-10 md:w-[337px] md:px-0 md:pb-0"
-          >
-            <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-              Design System Hering
-            </p>
-            <div className="flex flex-col gap-4">
-              <p className="text-[16px] font-light leading-relaxed text-[#1f1f1f]">
-                To ensure a seamless brand experience, I aligned the new web PDP with Hering's
-                existing mobile Design System.
-              </p>
-              <p className="text-[16px] font-light leading-relaxed text-[#757575]">
-                By adapting and validating mobile components for the web, we avoided divergence and
-                maintained visual and functional coherence, maximizing reuse while ensuring
-                platform-specific efficiency.
-              </p>
+        <section>
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-start">
+              <FadeUp delay={0} className="flex flex-col gap-8">
+                <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
+                  Design System Hering
+                </p>
+                <div className="flex flex-col gap-4">
+                  <p className="text-[16px] font-light leading-relaxed text-[#1f1f1f]">
+                    To ensure a seamless brand experience, I aligned the new web PDP with Hering's
+                    existing mobile Design System.
+                  </p>
+                  <p className="text-[16px] font-light leading-relaxed text-[#757575]">
+                    By adapting and validating mobile components for the web, we avoided divergence and
+                    maintained visual and functional coherence, maximizing reuse while ensuring
+                    platform-specific efficiency.
+                  </p>
+                </div>
+              </FadeUp>
+              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                <img
+                  src={imgDesignSystem}
+                  alt="Hering Design System"
+                  className="w-full"
+                />
+              </FadeIn>
             </div>
-          </FadeUp>
-          <FadeIn delay={0.2} className="flex-1 px-5 md:px-4">
-            <img
-              src={imgDesignSystem}
-              alt="Hering Design System"
-              className="w-full rounded-[16px]"
-            />
-          </FadeIn>
+          </ContentContainer>
         </section>
 
         <Divider />
 
-        {/* ── Before / After + Wide Handoff ─────────────────────────────────── */}
+        {/* ── Wide Handoff ──────────────────────────────────────────────────── */}
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col items-center gap-8">
-            <div className="grid w-full grid-cols-2 gap-4 md:gap-8">
-              <FadeUp delay={0} className="overflow-hidden rounded-[16px]">
-                <img src={imgBefore} alt="PDP — before redesign" className="h-full w-full object-cover" />
-              </FadeUp>
-              <FadeUp delay={0.1} className="overflow-hidden rounded-[16px]">
-                <img src={imgAfter} alt="PDP — after redesign" className="h-full w-full object-cover" />
-              </FadeUp>
-            </div>
-            <FadeIn delay={0.1} className="w-full overflow-hidden rounded-[16px]">
-              <img src={imgHandoff} alt="Handoff documentation" className="w-full" />
-            </FadeIn>
-          </div>
+          <FadeIn delay={0.1} className="w-full overflow-hidden rounded-[16px]">
+            <img src={imgHandoff} alt="Handoff documentation" className="w-full" />
+          </FadeIn>
         </ContentContainer>
 
         {/* ── Handoff Text ──────────────────────────────────────────────────── */}
@@ -634,74 +656,75 @@ export function HeringPage() {
         </ContentContainer>
 
         {/* ── Scrollable Mockup ─────────────────────────────────────────────── */}
-        <FadeIn>
-          <div className="mx-5 overflow-hidden rounded-[16px] border-2 border-[#757575] md:mx-8 lg:mx-auto lg:max-w-[1188px]">
-            <div className="max-h-[804px] overflow-y-auto">
-              <img src={imgPDPFull} alt="Full Product Detail Page design" className="w-full" />
+        <ContentContainer className="pb-16 md:pb-[120px]">
+          <FadeIn>
+            <div className="overflow-hidden rounded-[16px] border-2 border-[#757575]">
+              <div className="max-h-[804px] overflow-y-auto">
+                <img src={imgPDPFull} alt="Full Product Detail Page design" className="w-full" />
+              </div>
             </div>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        </ContentContainer>
 
-        {/* ── Gray Section — A/B Test ───────────────────────────────────────── */}
-        <section
-          id="testing-strategy"
-          className="mt-16 w-full bg-[#f5f5f5] px-5 py-16 md:mt-[120px] md:py-[142px] md:pl-[142px] md:pr-8"
-        >
-          <div className="flex flex-col gap-16 md:gap-[142px]">
+        {/* ── Gray Section — Testing Strategy ───────────────────────────────── */}
+        <section id="testing-strategy" className="w-full bg-[#f5f5f5]">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16 md:gap-[120px]">
 
-            {/* Multivariate Test */}
-            <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-[72px]">
-              <FadeUp delay={0} className="flex w-full shrink-0 flex-col gap-6 md:w-[337px]">
-                <p className="text-[20px] font-light text-[#1f1f1f] md:text-[24px]">
-                  Multivariate test
-                </p>
-                <div className="flex flex-col gap-4 text-[16px] font-light leading-relaxed text-[#1f1f1f]">
-                  <p>
-                    We executed a multivariate test to validate conversion hypotheses, which proved
-                    to be a critical learning milestone.
+              {/* Multivariate Test */}
+              <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-center">
+                <FadeUp delay={0} className="flex flex-col gap-6">
+                  <p className="text-[20px] font-light text-[#1f1f1f] md:text-[24px]">
+                    Multivariate test
                   </p>
-                  <p>
-                    While the experiment produced biased data for individual components, it provided
-                    vital lessons on variable isolation and scope planning, maturing our long-term
-                    approach to data-driven validation.
+                  <div className="flex flex-col gap-4 text-[16px] font-light leading-relaxed text-[#1f1f1f]">
+                    <p>
+                      We executed a multivariate test to validate conversion hypotheses, which proved
+                      to be a critical learning milestone.
+                    </p>
+                    <p>
+                      While the experiment produced biased data for individual components, it provided
+                      vital lessons on variable isolation and scope planning, maturing our long-term
+                      approach to data-driven validation.
+                    </p>
+                  </div>
+                </FadeUp>
+                <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                  <img src={imgABTest} alt="A/B test planning" className="w-full" />
+                </FadeIn>
+              </div>
+
+              {/* Analysis and Monitoring */}
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-16 md:items-center">
+                <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                  <img src={imgAnalysis} alt="Analytics monitoring dashboard" className="w-full" />
+                </FadeIn>
+                <FadeUp delay={0} className="flex flex-col gap-6">
+                  <p className="text-[20px] font-light text-[#1f1f1f] md:text-[24px]">
+                    Analysis and monitoring
                   </p>
-                </div>
-              </FadeUp>
-              <FadeIn delay={0.2} className="flex-1 overflow-hidden rounded-[16px]">
-                <img src={imgABTest} alt="A/B test planning" className="w-full" />
+                  <div className="flex flex-col gap-4 text-[16px] font-light leading-relaxed text-[#1f1f1f]">
+                    <p>
+                      Together with the analytics team, we tracked A/B test performance using GA4
+                      (Google Analytics) and a custom dashboard. Data collection ran from February 1st
+                      to 18th; results were analyzed between February 15th and 22nd.
+                    </p>
+                    <p>
+                      While the experiment produced biased data for individual components, it provided
+                      vital lessons on variable isolation and scope planning, maturing our long-term
+                      approach to data-driven validation.
+                    </p>
+                  </div>
+                </FadeUp>
+              </div>
+
+              {/* Wide Results Image */}
+              <FadeIn className="overflow-hidden rounded-[16px]">
+                <img src={imgResults} alt="A/B test results" className="w-full" />
               </FadeIn>
+
             </div>
-
-            {/* Analysis and Monitoring */}
-            <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-[72px]">
-              <FadeUp delay={0} className="flex w-full shrink-0 flex-col gap-6 md:w-[337px]">
-                <p className="text-[20px] font-light text-[#1f1f1f] md:text-[24px]">
-                  Analysis and monitoring
-                </p>
-                <div className="flex flex-col gap-4 text-[16px] font-light leading-relaxed text-[#1f1f1f]">
-                  <p>
-                    Together with the analytics team, we tracked A/B test performance using GA4
-                    (Google Analytics) and a custom dashboard. Data collection ran from February 1st
-                    to 18th; results were analyzed between February 15th and 22nd.
-                  </p>
-                  <p>
-                    While the experiment produced biased data for individual components, it provided
-                    vital lessons on variable isolation and scope planning, maturing our long-term
-                    approach to data-driven validation.
-                  </p>
-                </div>
-              </FadeUp>
-              <FadeIn delay={0.2} className="flex-1 overflow-hidden rounded-[16px]">
-                <img src={imgAnalysis} alt="Analytics monitoring dashboard" className="w-full" />
-              </FadeIn>
-            </div>
-
-            {/* Wide Results Image */}
-            <FadeIn className="overflow-hidden rounded-[16px]">
-              <img src={imgResults} alt="A/B test results" className="w-full" />
-            </FadeIn>
-
-          </div>
+          </ContentContainer>
         </section>
 
         {/* ── Metrics (repeated) ────────────────────────────────────────────── */}

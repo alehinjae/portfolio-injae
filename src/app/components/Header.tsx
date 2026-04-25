@@ -1,6 +1,4 @@
 import { Link, useLocation } from "react-router";
-import { Logo } from "./design-system/Logo";
-import { Button } from "./design-system/Button";
 import { useScrollDirection } from "../hooks/useScrollDirection";
 
 export function Header() {
@@ -17,18 +15,28 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-[1188px] items-center justify-between px-5 py-4 md:px-8">
         <Link to="/" className="no-underline">
-          <Logo />
+          <span className="text-[18px] font-normal text-[#757575]">Alexandre In Jae</span>
         </Link>
         <nav className="flex items-center gap-2">
           <Link to="/" className="no-underline">
-            <Button type="button" variant={pathname === "/" ? "primary" : "secondary"}>
+            <span
+              className={[
+                "inline-flex cursor-pointer items-center rounded-full px-[18px] pb-[8px] pt-[6px] text-[14px] font-normal transition-colors duration-200",
+                pathname === "/" ? "bg-[#1f1f1f] text-white hover:bg-black" : "bg-[#e3e3e3] text-[#1f1f1f] hover:bg-[#d4d4d4]",
+              ].join(" ")}
+            >
               Home
-            </Button>
+            </span>
           </Link>
           <Link to="/about" className="no-underline">
-            <Button type="button" variant={pathname === "/about" ? "primary" : "secondary"}>
+            <span
+              className={[
+                "inline-flex cursor-pointer items-center rounded-full px-[18px] pb-[8px] pt-[6px] text-[14px] font-normal transition-colors duration-200",
+                pathname === "/about" ? "bg-[#1f1f1f] text-white hover:bg-black" : "bg-[#e3e3e3] text-[#1f1f1f] hover:bg-[#d4d4d4]",
+              ].join(" ")}
+            >
               About
-            </Button>
+            </span>
           </Link>
         </nav>
       </div>
