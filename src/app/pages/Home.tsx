@@ -88,7 +88,8 @@ export function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease, delay: 0.2 }}
           >
-            Currently Product Designer Latam at <span className="text-black">Thoughtworks</span>
+            Currently Product Designer Latam at{" "}
+            <a href="https://www.thoughtworks.com/" target="_blank" rel="noopener noreferrer" className="text-black underline-offset-2 hover:underline">Thoughtworks</a>
           </motion.p>
         </section>
 
