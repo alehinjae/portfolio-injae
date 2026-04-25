@@ -150,8 +150,7 @@ function CaseImage({ src, alt = "", caption, aspect }: { src: string; alt?: stri
 
 export function ListerinePage() {
   return (
-    <PasswordGate>
-      <main className="bg-white font-light text-[#1f1f1f]">
+    <main className="bg-white font-light text-[#1f1f1f]">
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="relative flex h-[500px] flex-col justify-end overflow-hidden bg-[#035f64]">
@@ -615,6 +614,5 @@ export function ListerinePage() {
         </ContentContainer>
 
       </main>
-    </PasswordGate>
   );
 }

@@ -238,8 +238,7 @@ function ExecutionTabs() {
 
 export function HeringPage() {
   return (
-    <PasswordGate>
-      <main className="bg-white font-light text-[#1f1f1f]">
+    <main className="bg-white font-light text-[#1f1f1f]">
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="relative flex h-[500px] flex-col justify-end overflow-hidden">
@@ -882,6 +881,5 @@ export function HeringPage() {
         </ContentContainer>
 
       </main>
-    </PasswordGate>
   );
 }
