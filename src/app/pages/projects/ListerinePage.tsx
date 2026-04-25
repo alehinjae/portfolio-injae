@@ -543,18 +543,31 @@ export function ListerinePage() {
                 </TextBlock>
                 <CaseImage src={imgYoutube} alt="YouTube community comments" caption="Comments on one of the videos explaining the campaign" aspect="aspect-[4/3]" />
               </div>
-              <FadeIn>
-                <div className="relative aspect-video overflow-hidden rounded-[16px]">
-                  <iframe
-                    src="https://www.youtube.com/embed/1cPI_0LIyvI?rel=0&modestbranding=1&color=white"
-                    title="LISTERINE 21 Day Campaign"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full border-0"
-                  />
-                </div>
-                <p className="mt-3 text-[13px] font-light text-[#b3b3b3]">Many other videos shared and created by people about the campaign</p>
-              </FadeIn>
+              <div className="flex flex-col gap-6">
+                <FadeIn>
+                  <div className="relative aspect-video overflow-hidden rounded-[16px]">
+                    <iframe
+                      src="https://www.youtube.com/embed/1cPI_0LIyvI?rel=0&modestbranding=1&color=white"
+                      title="LISTERINE 21 Day Campaign"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 h-full w-full border-0"
+                    />
+                  </div>
+                </FadeIn>
+                <FadeIn delay={0.1}>
+                  <div className="relative aspect-video overflow-hidden rounded-[16px]">
+                    <iframe
+                      src="https://www.youtube.com/embed/XEqrAmL_3bc?rel=0&modestbranding=1&color=white"
+                      title="LISTERINE 21 Day Campaign 2"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 h-full w-full border-0"
+                    />
+                  </div>
+                </FadeIn>
+                <p className="text-[13px] font-light text-[#b3b3b3]">Many other videos shared and created by people about the campaign</p>
+              </div>
             </div>
           </ContentContainer>
         </section>
