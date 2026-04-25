@@ -5,6 +5,7 @@ import { ContentContainer } from "../../components/design-system/ContentContaine
 import type { ReactNode } from "react";
 
 import listerineCover from "../../../imports/Frame1-1/4856bf47df4169cdcafa182864346bc9a5a04584.png";
+import imgHeroBg from "../../../imports/listerine/hero-bg.webp";
 import imgHero from "../../../imports/listerine/Xxs6AIQpRBYZvW9F.webp";
 import imgKickoff from "../../../imports/listerine/R5eKPM8XnIZuE6PJ.png";
 import imgClientSuggestion from "../../../imports/listerine/uCm0KlGG1rXcekqS.png";
@@ -153,10 +154,16 @@ export function ListerinePage() {
       <main className="bg-white font-light text-[#1f1f1f]">
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
-        <section className="flex h-[500px] flex-col justify-end bg-[#e8e8e8]">
-          <ContentContainer className="pb-12 md:pb-16">
+        <section className="relative flex h-[500px] flex-col justify-end overflow-hidden bg-[#035f64]">
+          <img
+            src={imgHeroBg}
+            alt=""
+            className="absolute right-0 top-0 h-full w-auto object-cover object-left pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#035f64] via-[#035f64]/80 to-transparent" />
+          <ContentContainer className="relative pb-12 md:pb-16">
             <motion.p
-              className="text-[13px] font-normal uppercase tracking-[0.1em] text-[#8b8b8b]"
+              className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/60"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: ease, delay: 0.1 }}
@@ -164,7 +171,7 @@ export function ListerinePage() {
               Johnson &amp; Johnson
             </motion.p>
             <motion.h1
-              className="mt-4 text-[40px] font-light leading-tight text-[#1f1f1f] md:text-[64px]"
+              className="mt-4 text-[40px] font-light leading-tight text-white md:text-[64px]"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease }}
@@ -172,7 +179,7 @@ export function ListerinePage() {
               21 Day Campaign with LISTERINE®
             </motion.h1>
             <motion.p
-              className="mt-4 text-[18px] font-light text-[#5a5a5a] md:text-[24px]"
+              className="mt-4 text-[18px] font-light text-white/80 md:text-[24px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease, delay: 0.15 }}
