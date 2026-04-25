@@ -17,7 +17,7 @@ export function Header() {
         <Link to="/" className="no-underline">
           <span className="text-[18px] font-normal text-[#757575]">Alexandre In Jae</span>
         </Link>
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center">
           <Link to="/" className="no-underline">
             <span
               className={[
@@ -26,16 +26,6 @@ export function Header() {
               ].join(" ")}
             >
               Home
-            </span>
-          </Link>
-          <Link to="/about" className="no-underline">
-            <span
-              className={[
-                "inline-flex cursor-pointer items-center rounded-full px-[18px] pb-[8px] pt-[6px] text-[14px] font-normal transition-colors duration-200",
-                pathname === "/about" ? "bg-[#1f1f1f] text-white hover:bg-black" : "bg-[#e3e3e3] text-[#1f1f1f] hover:bg-[#d4d4d4]",
-              ].join(" ")}
-            >
-              About
             </span>
           </Link>
         </nav>
