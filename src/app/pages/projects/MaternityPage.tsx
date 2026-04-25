@@ -136,12 +136,10 @@ export function MaternityPage() {
       <main className="bg-white font-light text-[#1f1f1f]">
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
-        <section className="relative flex h-[500px] flex-col justify-end overflow-hidden">
-          <img src={maternityCover} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-black/55" />
-          <ContentContainer className="relative pb-12 md:pb-16">
+        <section className="flex h-[500px] flex-col justify-end bg-[#e8e8e8]">
+          <ContentContainer className="pb-12 md:pb-16">
             <motion.p
-              className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/60"
+              className="text-[13px] font-normal uppercase tracking-[0.1em] text-[#8b8b8b]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: ease, delay: 0.1 }}
@@ -149,7 +147,7 @@ export function MaternityPage() {
               Johnson's Baby
             </motion.p>
             <motion.h1
-              className="mt-4 text-[40px] font-light leading-tight text-white md:text-[64px]"
+              className="mt-4 text-[40px] font-light leading-tight text-[#1f1f1f] md:text-[64px]"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease }}
@@ -157,7 +155,7 @@ export function MaternityPage() {
               Maternity Campaign
             </motion.h1>
             <motion.p
-              className="mt-4 text-[18px] font-light text-white/80 md:text-[24px]"
+              className="mt-4 text-[18px] font-light text-[#5a5a5a] md:text-[24px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: ease, delay: 0.15 }}
@@ -167,15 +165,14 @@ export function MaternityPage() {
           </ContentContainer>
         </section>
 
-        {/* ── Campaign visuals ──────────────────────────────────────────────── */}
-        <div className="grid md:grid-cols-2">
-          <div className="overflow-hidden">
-            <img src={imgHero} alt="Maternity campaign visual" className="h-full w-full object-cover" />
-          </div>
-          <div className="overflow-hidden">
-            <img src={imgHeroSecondary} alt="Johnson's Baby campaign screens" className="h-full w-full object-cover" />
-          </div>
-        </div>
+        {/* ── Campaign visual 1 (first module) ─────────────────────────────── */}
+        <ContentContainer className="pt-16 md:pt-[120px]">
+          <FadeIn>
+            <div className="overflow-hidden rounded-[16px]">
+              <img src={imgHero} alt="Maternity campaign visual" className="w-full object-cover" />
+            </div>
+          </FadeIn>
+        </ContentContainer>
 
         {/* ── Intro ─────────────────────────────────────────────────────────── */}
         <ContentContainer className="py-16 md:py-[120px]">
@@ -201,6 +198,15 @@ export function MaternityPage() {
               </p>
             </FadeUp>
           </div>
+        </ContentContainer>
+
+        {/* ── Campaign visual 2 (after intro) ──────────────────────────────── */}
+        <ContentContainer className="pb-16 md:pb-[120px]">
+          <FadeIn>
+            <div className="overflow-hidden rounded-[16px]">
+              <img src={imgHeroSecondary} alt="Johnson's Baby campaign screens" className="w-full object-cover" />
+            </div>
+          </FadeIn>
         </ContentContainer>
 
         {/* ── Overview ──────────────────────────────────────────────────────── */}
@@ -327,8 +333,8 @@ export function MaternityPage() {
               </TextBlock>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
-              <CaseImage src={imgActiveCampaign} alt="Active campaign analysis" aspect="aspect-[4/3]" />
-              <CaseImage src={imgCampaignScreens} alt="Campaign screens" aspect="aspect-[4/3]" />
+              <CaseImage src={imgActiveCampaign} alt="Active campaign analysis" />
+              <CaseImage src={imgCampaignScreens} alt="Campaign screens" />
             </div>
             <TextBlock label="Active campaign analyse">
               <p>
@@ -338,7 +344,7 @@ export function MaternityPage() {
               </p>
             </TextBlock>
             <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <CaseImage src={imgDataDoc} alt="Data accessibility documentation" aspect="aspect-[4/3]" />
+              <CaseImage src={imgDataDoc} alt="Data accessibility documentation" />
               <TextBlock label="Data Accessibility Challenges">
                 <p>
                   Johnson's Baby encountered internal and legal processes that posed challenges to accessing precise
