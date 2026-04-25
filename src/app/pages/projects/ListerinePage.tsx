@@ -27,7 +27,6 @@ import imgStyleGuide from "../../../imports/listerine/h3STpvlFbBlfIGPj.png";
 import imgMobileScreens from "../../../imports/listerine/HcO2KzAFkLWxx7FM.png";
 import imgPMApproval from "../../../imports/listerine/P1j30KhOLSE9mvXe.png";
 import imgYoutube from "../../../imports/listerine/gT9ksXz0eCFOVo8j.png";
-import imgVideos from "../../../imports/listerine/MijsLABlsl7W7viy.png";
 import imgConclusion from "../../../imports/listerine/qdwpU7FykqMjTOEN.png";
 
 // ─── Animation primitives ────────────────────────────────────────────────────
@@ -545,8 +544,14 @@ export function ListerinePage() {
                 <CaseImage src={imgYoutube} alt="YouTube community comments" caption="Comments on one of the videos explaining the campaign" aspect="aspect-[4/3]" />
               </div>
               <FadeIn>
-                <div className="overflow-hidden rounded-[16px]" style={{ maxHeight: "480px" }}>
-                  <img src={imgVideos} alt="Campaign videos shared by participants" className="w-full object-cover object-top" />
+                <div className="relative aspect-video overflow-hidden rounded-[16px]">
+                  <iframe
+                    src="https://www.youtube.com/embed/1cPI_0LIyvI?rel=0&modestbranding=1&color=white"
+                    title="LISTERINE 21 Day Campaign"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full border-0"
+                  />
                 </div>
                 <p className="mt-3 text-[13px] font-light text-[#b3b3b3]">Many other videos shared and created by people about the campaign</p>
               </FadeIn>
