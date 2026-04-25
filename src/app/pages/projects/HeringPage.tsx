@@ -24,10 +24,8 @@ import imgAnalysis from "../../../imports/hering/BoyHM7BcF4sr3b4R.webp";
 import imgResults from "../../../imports/hering/k4pGaHKaKCcj632J.webp";
 import imgConversion from "../../../imports/hering/jJ4D1DWjzZ5hXinL.webp";
 import imgPDPFull from "../../../imports/hering/pdp-full-page.webp";
-import imgMobileScreens from "../../../imports/hering/pdp-mobile-screens.png";
-import imgDesktopFinal from "../../../imports/hering/pdp-desktop-final.png";
-import imgABHypothesis from "../../../imports/hering/ab-hypothesis.png";
-import imgVersionB from "../../../imports/hering/version-b-rationale.png";
+import imgDSDeep from "../../../imports/hering/ab-hypothesis.png";
+import imgHypothesisCard from "../../../imports/hering/hypothesis-card.png";
 import imgResultsData from "../../../imports/hering/results-data-table.png";
 
 // ─── Animation primitives ────────────────────────────────────────────────────
@@ -591,59 +589,38 @@ export function HeringPage() {
           </ContentContainer>
         </section>
 
-        {/* ── Final Mobile Design ───────────────────────────────────────────── */}
-        <section id="experience-design-final">
-          <ContentContainer className="pb-16 md:pb-[120px]">
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-center">
-              <FadeUp delay={0} className="flex flex-col gap-6">
-                <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                  Mobile-First Execution
-                </p>
-                <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                  The final PDP screens were crafted across four key interaction states — from product
-                  discovery and size selection to purchase confirmation — ensuring a consistent,
-                  frictionless experience on the device type that drives the majority of Hering's traffic.
-                </p>
-                <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                  Every component was designed with progressive disclosure in mind: show the essential
-                  information first, let users choose what to expand.
-                </p>
-              </FadeUp>
-              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
-                <img src={imgMobileScreens} alt="Final Hering PDP mobile screens" className="w-full" />
-              </FadeIn>
-            </div>
-          </ContentContainer>
-        </section>
-
         <Divider />
 
         {/* ── Design System Hering ──────────────────────────────────────────── */}
         <section>
           <ContentContainer className="py-16 md:py-[120px]">
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-start">
-              <FadeUp delay={0} className="flex flex-col gap-8">
-                <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                  Design System Hering
-                </p>
-                <div className="flex flex-col gap-4">
-                  <p className="text-[16px] font-light leading-relaxed text-[#1f1f1f]">
-                    To ensure a seamless brand experience, I aligned the new web PDP with Hering's
-                    existing mobile Design System.
+            <div className="flex flex-col gap-16">
+              <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 md:items-start">
+                <FadeUp delay={0} className="flex flex-col gap-8">
+                  <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
+                    Design System Hering
                   </p>
-                  <p className="text-[16px] font-light leading-relaxed text-[#757575]">
-                    By adapting and validating mobile components for the web, we avoided divergence and
-                    maintained visual and functional coherence, maximizing reuse while ensuring
-                    platform-specific efficiency.
-                  </p>
-                </div>
-              </FadeUp>
-              <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
-                <img
-                  src={imgDesignSystem}
-                  alt="Hering Design System"
-                  className="w-full"
-                />
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
+                      To ensure a seamless brand experience, I aligned the new web PDP with Hering's
+                      existing mobile Design System — adapting and validating mobile components for
+                      the web to avoid divergence and maintain visual and functional coherence.
+                    </p>
+                    <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
+                      Beyond adapting the app system, I led the creation of a dedicated{" "}
+                      <strong className="font-normal text-[#1f1f1f]">Web Design System</strong>{" "}
+                      — two Figma library files (Bases &amp; Components and Design Tokens) built
+                      from scratch with all components fully connected to tokens, enabling
+                      developers to reference exact CSS variables directly from each component.
+                    </p>
+                  </div>
+                </FadeUp>
+                <FadeIn delay={0.2} className="overflow-hidden rounded-[16px]">
+                  <img src={imgDesignSystem} alt="Hering Design System" className="w-full" />
+                </FadeIn>
+              </div>
+              <FadeIn delay={0.1} className="overflow-hidden rounded-[16px]">
+                <img src={imgDSDeep} alt="Hering Design System component anatomy with tokens" className="w-full" />
               </FadeIn>
             </div>
           </ContentContainer>
@@ -696,72 +673,30 @@ export function HeringPage() {
           </FadeIn>
         </ContentContainer>
 
-        {/* ── Desktop Final Implementation ──────────────────────────────────── */}
-        <ContentContainer className="pb-16 md:pb-[120px]">
-          <div className="grid gap-10 md:grid-cols-2 md:gap-[72px] md:items-start">
-            <FadeIn delay={0} className="overflow-hidden rounded-[16px] border border-[#e3e3e3]">
-              <img src={imgDesktopFinal} alt="Hering PDP live desktop implementation" className="w-full" />
-            </FadeIn>
-            <FadeUp delay={0.15} className="flex flex-col gap-6">
-              <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                Launched &amp; Live
-              </p>
-              <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                The redesigned PDP went live on Hering's e-commerce platform — one of Brazil's most
-                visited fashion destinations, with over 4 million monthly sessions.
-              </p>
-              <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                The desktop implementation retained the full depth of product information while
-                reducing visual noise — clearer size availability, smarter imagery hierarchy, and
-                refined CTAs anchored to the user's purchase intent at every scroll depth.
-              </p>
-            </FadeUp>
-          </div>
-        </ContentContainer>
-
         {/* ── Gray Section — Testing Strategy ───────────────────────────────── */}
         <section id="testing-strategy" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16 md:gap-[120px]">
 
               {/* A/B Hypothesis */}
-              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-center">
-                <FadeIn delay={0} className="overflow-hidden rounded-[16px]">
-                  <img src={imgABHypothesis} alt="A/B test hypothesis framework" className="w-full" />
-                </FadeIn>
-                <FadeUp delay={0.15} className="flex flex-col gap-6">
-                  <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                    Test Hypothesis
-                  </p>
-                  <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                    The test was built on a structured hypothesis framework: knowing that the existing
-                    PDP created friction in key decision moments, the redesign targeted information
-                    clarity, stock visibility, and CTA prominence — with a clear expected outcome tied
-                    to conversion and support ticket reduction.
-                  </p>
-                </FadeUp>
-              </div>
-
-              {/* Version B Rationale */}
               <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-center">
                 <FadeUp delay={0} className="flex flex-col gap-6">
                   <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-                    Version B Design Decisions
+                    Structured Hypothesis
                   </p>
                   <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                    One of the most impactful changes in Version B was the color selector interaction.
-                    Rather than expanding all options on load, colors collapsed after selection —
-                    reducing unnecessary clicks and keeping users anchored within the product view
-                    throughout their decision journey.
+                    Before building anything, we documented a clear belief statement: the current PDP
+                    created friction in key decision moments — missing size availability cues,
+                    unclear returns policy, and weak image hierarchy.
                   </p>
                   <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                    This single interaction pattern change contributed to measurable engagement
-                    improvements, particularly on mobile where screen real estate directly affects
-                    conversion intent.
+                    The hypothesis connected each design action directly to an expected business
+                    outcome — reducing SAC contact about returns and shipping, while improving
+                    average conversion across all devices.
                   </p>
                 </FadeUp>
                 <FadeIn delay={0.15} className="overflow-hidden rounded-[16px]">
-                  <img src={imgVersionB} alt="Version B color selector design rationale" className="w-full" />
+                  <img src={imgHypothesisCard} alt="A/B test hypothesis framework" className="w-full" />
                 </FadeIn>
               </div>
 
