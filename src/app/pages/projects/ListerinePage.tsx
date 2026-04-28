@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
+import { Scrollspy } from "../../components/design-system/Scrollspy";
 import type { ReactNode } from "react";
 
 import listerineCover from "../../../imports/Frame1-1/4856bf47df4169cdcafa182864346bc9a5a04584.png";
@@ -81,7 +82,14 @@ const overview = [
   { title: "Timeline", items: ["Overall: 6+ weeks", "Discovery & Research: 2+ weeks", "Design & Delivery: 4 weeks"] },
 ];
 
-const processSteps = ["Benchmarking", "Wireflows", "Mechanics", "Layout", "Delivery", "Results"];
+const SCROLLSPY_ITEMS = [
+  { id: "benchmarking", label: "Benchmarking" },
+  { id: "wireflows", label: "Wireflows" },
+  { id: "mechanics", label: "Campaign Mechanics" },
+  { id: "layout", label: "Layout & Components" },
+  { id: "delivery", label: "Delivery" },
+  { id: "results", label: "Results" },
+];
 
 function SectionHeading({ eyebrow, title }: { eyebrow?: string; title: string }) {
   return (
@@ -151,6 +159,7 @@ function CaseImage({ src, alt = "", caption, aspect }: { src: string; alt?: stri
 export function ListerinePage() {
   return (
     <main className="bg-white font-light text-[#1f1f1f]">
+      <Scrollspy items={SCROLLSPY_ITEMS} />
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="relative flex h-[500px] flex-col justify-end overflow-hidden bg-[#035f64]">
@@ -306,27 +315,8 @@ export function ListerinePage() {
 
         <Divider />
 
-        {/* ── Process ───────────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-14">
-            <SectionHeading title="My Design Process" />
-            <FadeUp delay={0.1}>
-              <div className="grid grid-cols-3 gap-6 md:grid-cols-6">
-                {processSteps.map((step, i) => (
-                  <div key={step} className="flex flex-col gap-3 border-t-2 border-[#1f1f1f] pt-4">
-                    <span className="text-[11px] font-normal uppercase tracking-[0.1em] text-[#b3b3b3]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[14px] font-normal text-[#1f1f1f]">{step}</span>
-                  </div>
-                ))}
-              </div>
-            </FadeUp>
-          </div>
-        </ContentContainer>
-
         {/* ── 01 Benchmarking ───────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        <section id="benchmarking" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="01" title="Benchmarking" />
@@ -407,64 +397,68 @@ export function ListerinePage() {
         </section>
 
         {/* ── 02 Wireflows ──────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="02" title="Wireflows" />
-            <TextBlock label="Approach">
-              <p>
-                As a UX Designer professional, given the tight deadline to complete the design sprint phase, we opted
-                to leverage existing wireframe structures from previous campaigns. This approach allowed us to optimize
-                time and incorporate proven best practices for the landing page and user registration flow.
-              </p>
-            </TextBlock>
-            <div className="grid gap-4 md:grid-cols-3">
-              <CaseImage src={imgWireflow1} alt="Wireflow — registration flow" aspect="aspect-[3/4]" />
-              <CaseImage src={imgWireflow2} alt="Wireflow — landing page flow" aspect="aspect-[3/4]" />
-              <CaseImage src={imgWireflow3} alt="Wireflow — participation flow" aspect="aspect-[3/4]" />
+        <section id="wireflows">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="02" title="Wireflows" />
+              <TextBlock label="Approach">
+                <p>
+                  As a UX Designer professional, given the tight deadline to complete the design sprint phase, we opted
+                  to leverage existing wireframe structures from previous campaigns. This approach allowed us to optimize
+                  time and incorporate proven best practices for the landing page and user registration flow.
+                </p>
+              </TextBlock>
+              <div className="grid gap-4 md:grid-cols-3">
+                <CaseImage src={imgWireflow1} alt="Wireflow — registration flow" aspect="aspect-[3/4]" />
+                <CaseImage src={imgWireflow2} alt="Wireflow — landing page flow" aspect="aspect-[3/4]" />
+                <CaseImage src={imgWireflow3} alt="Wireflow — participation flow" aspect="aspect-[3/4]" />
+              </div>
             </div>
-          </div>
-        </ContentContainer>
+          </ContentContainer>
+        </section>
 
         <Divider />
 
         {/* ── 03 Campaign mechanics ─────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="03" title="Campaign mechanics" />
-            <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
-              <CaseImage src={imgMechanicsDiscussion} alt="Discussing mechanics with client" caption="Discussing the promotion mechanics with the client" aspect="aspect-[4/3]" />
-              <TextBlock label="Promotion rules">
-                <p>
-                  After a second round of discussion with the client, we proposed an initial idea for the promotion
-                  mechanics. Together, we evaluated how the promotion could be effectively developed.
-                </p>
-                <p><strong className="font-normal text-[#1f1f1f]">1.</strong> You registered 1 receipt → spin the wheel <strong className="font-normal text-[#1f1f1f]">1 time per day.</strong></p>
-                <p><strong className="font-normal text-[#1f1f1f]">2.</strong> You registered 2 receipts → spin the wheel <strong className="font-normal text-[#1f1f1f]">2 times per day.</strong></p>
-                <p><strong className="font-normal text-[#1f1f1f]">3.</strong> You registered 3 receipts → spin the wheel <strong className="font-normal text-[#1f1f1f]">3 times per day.</strong></p>
-              </TextBlock>
+        <section id="mechanics">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="03" title="Campaign mechanics" />
+              <div className="grid gap-10 md:grid-cols-[1fr_1.8fr] md:gap-[72px] md:items-start">
+                <CaseImage src={imgMechanicsDiscussion} alt="Discussing mechanics with client" caption="Discussing the promotion mechanics with the client" aspect="aspect-[4/3]" />
+                <TextBlock label="Promotion rules">
+                  <p>
+                    After a second round of discussion with the client, we proposed an initial idea for the promotion
+                    mechanics. Together, we evaluated how the promotion could be effectively developed.
+                  </p>
+                  <p><strong className="font-normal text-[#1f1f1f]">1.</strong> You registered 1 receipt → spin the wheel <strong className="font-normal text-[#1f1f1f]">1 time per day.</strong></p>
+                  <p><strong className="font-normal text-[#1f1f1f]">2.</strong> You registered 2 receipts → spin the wheel <strong className="font-normal text-[#1f1f1f]">2 times per day.</strong></p>
+                  <p><strong className="font-normal text-[#1f1f1f]">3.</strong> You registered 3 receipts → spin the wheel <strong className="font-normal text-[#1f1f1f]">3 times per day.</strong></p>
+                </TextBlock>
+              </div>
+              <div className="grid gap-8 md:grid-cols-[1.6fr_1fr_1fr] md:gap-10 md:items-start">
+                <TextBlock label="Mechanic approved">
+                  <p>
+                    The mechanics were approved, with the{" "}
+                    <strong className="font-normal text-[#1f1f1f]">indication of the days</strong> through{" "}
+                    <strong className="font-normal text-[#1f1f1f]">filled and empty cups</strong>. Those who are awarded
+                    will have their cup <strong className="font-normal text-[#1f1f1f]">marked with a star</strong>.
+                  </p>
+                  <p>
+                    Upon selecting the feature, a{" "}
+                    <strong className="font-normal text-[#1f1f1f]">motivational message</strong> will be displayed along
+                    with a button for the person to participate in the promotion on the selected day.
+                  </p>
+                </TextBlock>
+                <CaseImage src={imgMechanicStudies} alt="Mechanic studies" caption="Mechanic studies" aspect="aspect-[4/3]" />
+                <CaseImage src={imgMechanicApproved} alt="Mechanic approved" caption="Approved by client and tech team" aspect="aspect-[4/3]" />
+              </div>
             </div>
-            <div className="grid gap-8 md:grid-cols-[1.6fr_1fr_1fr] md:gap-10 md:items-start">
-              <TextBlock label="Mechanic approved">
-                <p>
-                  The mechanics were approved, with the{" "}
-                  <strong className="font-normal text-[#1f1f1f]">indication of the days</strong> through{" "}
-                  <strong className="font-normal text-[#1f1f1f]">filled and empty cups</strong>. Those who are awarded
-                  will have their cup <strong className="font-normal text-[#1f1f1f]">marked with a star</strong>.
-                </p>
-                <p>
-                  Upon selecting the feature, a{" "}
-                  <strong className="font-normal text-[#1f1f1f]">motivational message</strong> will be displayed along
-                  with a button for the person to participate in the promotion on the selected day.
-                </p>
-              </TextBlock>
-              <CaseImage src={imgMechanicStudies} alt="Mechanic studies" caption="Mechanic studies" aspect="aspect-[4/3]" />
-              <CaseImage src={imgMechanicApproved} alt="Mechanic approved" caption="Approved by client and tech team" aspect="aspect-[4/3]" />
-            </div>
-          </div>
-        </ContentContainer>
+          </ContentContainer>
+        </section>
 
         {/* ── 04 Layout ─────────────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        <section id="layout" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="04" title="Layout & Components" />
@@ -490,44 +484,46 @@ export function ListerinePage() {
         </section>
 
         {/* ── 05 Delivery ───────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="05" title="Delivery" />
-            <TextBlock label="Mobile prototype">
-              <p>
-                The project encompassed the creation and development of around 13 mobile-first pages, meticulously
-                designed to support a campaign centered on user registration and participation in the 21-day
-                Listerine challenge. The prototype was thoughtfully crafted with a strong focus on mobile usability,
-                ensuring seamless navigation and a delightful experience across all pages.
-              </p>
-            </TextBlock>
-            <CaseImage src={imgMobileScreens} alt="Mobile screens delivery" />
-            <TextBlock label="Desk prototype">
-              <p>
-                Throughout the page creation process, regular alignment and validation meetings were conducted,
-                involving both the technology team and the client. These collaborative sessions ensured thorough
-                scrutiny and approval of all campaign functionalities, fostering a seamless integration of ideas and
-                insights.
-              </p>
-            </TextBlock>
-            <div className="grid gap-10 md:grid-cols-[1.8fr_1fr] md:gap-[72px] md:items-start">
-              <CaseImage src={imgPMApproval} alt="PM approval comments" caption="Comments — Project Manager" aspect="aspect-[4/3]" />
-              <DarkCard title="Approved with modifications">
+        <section id="delivery">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="05" title="Delivery" />
+              <TextBlock label="Mobile prototype">
                 <p>
-                  Great, you nailed it! We convinced them and we're moving forward.{" "}
-                  <strong className="font-normal text-white">The layout has been approved and received personal praise.</strong>
+                  The project encompassed the creation and development of around 13 mobile-first pages, meticulously
+                  designed to support a campaign centered on user registration and participation in the 21-day
+                  Listerine challenge. The prototype was thoughtfully crafted with a strong focus on mobile usability,
+                  ensuring seamless navigation and a delightful experience across all pages.
                 </p>
-                <p className="italic">
-                  "Alexandre, to officially wrap things up, could you just adjust the text? (They sent it without
-                  commas and accents)."
+              </TextBlock>
+              <CaseImage src={imgMobileScreens} alt="Mobile screens delivery" />
+              <TextBlock label="Desk prototype">
+                <p>
+                  Throughout the page creation process, regular alignment and validation meetings were conducted,
+                  involving both the technology team and the client. These collaborative sessions ensured thorough
+                  scrutiny and approval of all campaign functionalities, fostering a seamless integration of ideas and
+                  insights.
                 </p>
-              </DarkCard>
+              </TextBlock>
+              <div className="grid gap-10 md:grid-cols-[1.8fr_1fr] md:gap-[72px] md:items-start">
+                <CaseImage src={imgPMApproval} alt="PM approval comments" caption="Comments — Project Manager" aspect="aspect-[4/3]" />
+                <DarkCard title="Approved with modifications">
+                  <p>
+                    Great, you nailed it! We convinced them and we're moving forward.{" "}
+                    <strong className="font-normal text-white">The layout has been approved and received personal praise.</strong>
+                  </p>
+                  <p className="italic">
+                    "Alexandre, to officially wrap things up, could you just adjust the text? (They sent it without
+                    commas and accents)."
+                  </p>
+                </DarkCard>
+              </div>
             </div>
-          </div>
-        </ContentContainer>
+          </ContentContainer>
+        </section>
 
         {/* ── 06 Results ────────────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        <section id="results" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="06" title="Results" />

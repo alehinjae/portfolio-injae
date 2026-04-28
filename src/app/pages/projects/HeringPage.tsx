@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { motion } from "framer-motion";
+import { Scrollspy } from "../../components/design-system/Scrollspy";
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
 
@@ -86,159 +87,23 @@ function Divider() {
   );
 }
 
-// ─── Execution Framework Tabs ────────────────────────────────────────────────
+// ─── Scrollspy items ─────────────────────────────────────────────────────────
 
-const TAB_SECTIONS = [
-  { label: "Stakeholder Alignment", id: "stakeholder-alignment" },
-  { label: "Strategic Definition", id: "strategic-definition" },
-  { label: "Insights & Research", id: "insights-research" },
-  { label: "Experience Design", id: "experience-design" },
-  { label: "Testing Strategy", id: "testing-strategy" },
-  { label: "Final Analysis", id: "final-analysis" },
+const SCROLLSPY_ITEMS = [
+  { id: "stakeholder-alignment", label: "Stakeholder Alignment" },
+  { id: "strategic-definition", label: "Strategic Definition" },
+  { id: "insights-research", label: "Insights & Research" },
+  { id: "experience-design", label: "Experience Design" },
+  { id: "testing-strategy", label: "Testing Strategy" },
+  { id: "final-analysis", label: "Final Analysis" },
 ];
-
-function ExecutionTabs() {
-  const [isSticky, setIsSticky] = useState(false);
-  const [activeTab, setActiveTab] = useState(TAB_SECTIONS[0].id);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const tabsRef = useRef<HTMLDivElement>(null);
-  const mobileRowRef = useRef<HTMLDivElement>(null);
-  const thresholdRef = useRef<number>(0);
-
-  // Sticky detection via scroll + hysteresis:
-  // - Enter compact at threshold + 24px (buffer prevents triggering at the exact edge)
-  // - Exit compact only when scrolled back to threshold (one-way dead zone)
-  // The tab bar is always position:sticky so the position type never changes,
-  // eliminating the layout-shift feedback loop entirely.
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    thresholdRef.current = sentinel.getBoundingClientRect().top + window.scrollY;
-    const ENTER = 24;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setIsSticky(prev => {
-        if (!prev && y > thresholdRef.current + ENTER) return true;
-        if (prev && y <= thresholdRef.current) return false;
-        return prev;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    TAB_SECTIONS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) setActiveTab(id); },
-        { rootMargin: "-25% 0px -65% 0px", threshold: 0 },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
-  // Auto-scroll active tab into view on mobile
-  useEffect(() => {
-    const row = mobileRowRef.current;
-    if (!row) return;
-    const active = row.querySelector<HTMLElement>('[aria-current="true"]');
-    active?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  }, [activeTab]);
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const tabsH = tabsRef.current?.offsetHeight ?? 40;
-    const root = document.documentElement;
-    const headerH = parseFloat(root.style.getPropertyValue("--header-height") || "72");
-    const headerV = parseFloat(root.style.getPropertyValue("--header-visible") || "1");
-    const offset = Math.round(headerH * headerV) + (isSticky ? tabsH : 0) + 16;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: "smooth" });
-    setActiveTab(id);
-  };
-
-  return (
-    <>
-      <div ref={sentinelRef} aria-hidden="true" />
-      <div
-        ref={tabsRef}
-        className={[
-          "sticky z-40 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300",
-          isSticky ? "border-b border-[#e3e3e3] bg-white/95 shadow-sm backdrop-blur-md" : "border-b border-transparent",
-        ].join(" ")}
-        style={{ top: "calc(var(--header-height, 72px) * var(--header-visible, 1))" }}
-      >
-        {/* Mobile: horizontal scroll row */}
-        <div
-          ref={mobileRowRef}
-          className="flex overflow-x-auto md:hidden [&::-webkit-scrollbar]:hidden"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {TAB_SECTIONS.map(({ label, id }) => {
-            const active = activeTab === id;
-            return (
-              <button
-                key={id}
-                aria-current={active ? "true" : undefined}
-                onClick={() => scrollTo(id)}
-                className={[
-                  "flex-shrink-0 cursor-pointer whitespace-nowrap font-normal transition-all duration-200",
-                  isSticky
-                    ? "px-4 py-[8px] text-[9px] uppercase tracking-[0.09em]"
-                    : "px-5 py-[12px] text-[11px] uppercase tracking-[0.07em]",
-                  active
-                    ? "border-b-2 border-[#1f1f1f] text-[#1f1f1f]"
-                    : "border-b border-[#d9d9d9] text-[#b3b3b3]",
-                ].join(" ")}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Desktop: constrained grid */}
-        <div className="mx-auto hidden w-full max-w-[1188px] px-5 md:grid md:grid-cols-3 md:px-8 lg:grid-cols-6">
-          {TAB_SECTIONS.map(({ label, id }, i) => {
-            const active = activeTab === id;
-            return (
-              <button
-                key={id}
-                aria-current={active ? "true" : undefined}
-                onClick={() => scrollTo(id)}
-                className={[
-                  "cursor-pointer text-left font-normal transition-all duration-200",
-                  isSticky
-                    ? "px-5 py-[14px] text-[11px] uppercase tracking-[0.08em]"
-                    : "px-8 py-6 text-[18px]",
-                  active
-                    ? "border-b-2 border-[#1f1f1f] text-[#1f1f1f]"
-                    : [
-                        "border-b border-[#d9d9d9] text-[#b3b3b3] hover:text-[#757575]",
-                        i === 0 && !isSticky ? "bg-[#f5f5f5]" : "",
-                      ].join(" "),
-                ].join(" ")}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </>
-  );
-}
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export function HeringPage() {
   return (
     <main className="bg-white font-light text-[#1f1f1f]">
+      <Scrollspy items={SCROLLSPY_ITEMS} />
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="relative flex h-[500px] flex-col justify-end overflow-hidden">
@@ -356,16 +221,6 @@ export function HeringPage() {
             ))}
           </div>
         </ContentContainer>
-
-        {/* ── Execution Framework label ──────────────────────────────────────── */}
-        <ContentContainer className="pb-6">
-          <FadeUp>
-            <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">
-              Execution Framework
-            </p>
-          </FadeUp>
-        </ContentContainer>
-        <ExecutionTabs />
 
         {/* ── Stakeholder Alignment ─────────────────────────────────────────── */}
         <section id="stakeholder-alignment">

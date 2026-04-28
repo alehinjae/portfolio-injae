@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { PasswordGate } from "../../components/design-system/PasswordGate";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
+import { Scrollspy } from "../../components/design-system/Scrollspy";
 import type { ReactNode } from "react";
 
 import maternityCover from "../../../imports/Frame1-1/a35fc250f16f6bab9eab0bf17339a9d216e594fb.png";
 import imgHero from "../../../imports/maternity/0BoAXEhjhBybhv84.png";
 import imgHeroSecondary from "../../../imports/maternity/JpGSiZJ03PYaUPQG.png";
 import imgKickoff from "../../../imports/maternity/Pny0bnirM7AHt20S.png";
-import imgProcessDiagram from "../../../imports/maternity/pdKEc8Da9h106JGU.png";
 import imgFlyer from "../../../imports/maternity/h01DOh9adHWdmOqs.png";
 import imgActiveCampaign from "../../../imports/maternity/8J5amxBFz2LYI3yY.png";
 import imgCampaignScreens from "../../../imports/maternity/v2thu4GgJ7R8negW.png";
@@ -72,7 +72,14 @@ const overview = [
   { title: "Timeline", items: ["Overall: 6+ Weeks", "Design: 2+ Weeks"] },
 ];
 
-const processSteps = ["Discovery", "Journey", "User flow", "Wireframes", "Layout", "Delivery"];
+const SCROLLSPY_ITEMS = [
+  { id: "discovery", label: "Discovery" },
+  { id: "journey", label: "Journey" },
+  { id: "user-flow", label: "User Flow" },
+  { id: "wireframes", label: "Wireframes" },
+  { id: "layout", label: "Layout" },
+  { id: "delivery", label: "Delivery" },
+];
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
@@ -133,6 +140,7 @@ function CaseImage({ src, alt = "", caption, aspect }: { src: string; alt?: stri
 export function MaternityPage() {
   return (
     <main className="bg-white font-light text-[#1f1f1f]">
+      <Scrollspy items={SCROLLSPY_ITEMS} />
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="flex h-[500px] flex-col justify-end bg-[#2E6FA3]">
@@ -274,118 +282,88 @@ export function MaternityPage() {
           </div>
         </ContentContainer>
 
-        {/* ── Process ───────────────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        {/* ── 01 Discovery ──────────────────────────────────────────────────── */}
+        <section id="discovery">
           <ContentContainer className="py-16 md:py-[120px]">
-            <div className="flex flex-col gap-14">
-              <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-                <div className="flex flex-col gap-6">
-                  <SectionHeading title="My design process" />
-                  <FadeUp delay={0.1}>
-                    <p className="text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-                      Each project goes through separate stages to meet deadlines and ensure quality in user experience
-                      and business strategy.
-                    </p>
-                  </FadeUp>
-                </div>
-                <CaseImage src={imgProcessDiagram} alt="Design process diagram" />
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="01" title="Discovery" />
+              <TextBlock label="Research approach">
+                <p>
+                  After the kickoff, we proceeded with analyzing the provided data. We compiled certain definitions
+                  and also gathered information to establish our proto persona, which would assist us in guiding our
+                  decisions at the project's outset, particularly in envisioning the journey.
+                </p>
+              </TextBlock>
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+                <CaseImage src={imgFlyer} alt="Maternity kit flyer" caption="Flyer for illustrative purposes*" aspect="aspect-[4/3]" />
+                <TextBlock label="Maternity Kit">
+                  <p>
+                    At Johnson's Baby partner maternity clinics, mothers receive a kit with products and a bag, along
+                    with a flyer containing a discount code. Upon registration, they gain access to tips and
+                    supplementary products for baby care.
+                  </p>
+                  <p>
+                    Although the discount code from the flyer is immediately usable, Johnson's requires code
+                    verification in the maternity campaign to gather further information about the associated maternity clinic.
+                  </p>
+                </TextBlock>
               </div>
-              <FadeUp delay={0.1}>
-                <div className="grid grid-cols-3 gap-6 md:grid-cols-6">
-                  {processSteps.map((step, i) => (
-                    <div key={step} className="flex flex-col gap-3 border-t-2 border-[#1f1f1f] pt-4">
-                      <span className="text-[11px] font-normal uppercase tracking-[0.1em] text-[#b3b3b3]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[14px] font-normal text-[#1f1f1f]">{step}</span>
-                    </div>
-                  ))}
-                </div>
-              </FadeUp>
+              <div className="grid gap-6 md:grid-cols-2">
+                <CaseImage src={imgActiveCampaign} alt="Active campaign analysis" />
+                <CaseImage src={imgCampaignScreens} alt="Campaign screens" />
+              </div>
+              <TextBlock label="Active campaign analyse">
+                <p>
+                  From the previous ongoing campaign, since it was evergreen, we conducted analyses and took notes on
+                  the mandatory information required for registration. This process helped us generate insights based
+                  on existing practices.
+                </p>
+              </TextBlock>
+              <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
+                <CaseImage src={imgDataDoc} alt="Data accessibility documentation" />
+                <TextBlock label="Data Accessibility Challenges">
+                  <p>
+                    Johnson's Baby encountered internal and legal processes that posed challenges to accessing precise
+                    data regarding the target audience. Given these challenges and the scenarios shared by the client,
+                    we opted to define a proto persona. This strategic decision enables us to channel our efforts more
+                    effectively, ensuring higher quality progress in the project.
+                  </p>
+                </TextBlock>
+              </div>
+              <CaseImage src={imgPersona} alt="Proto persona definition" />
+              <div className="grid gap-6 md:grid-cols-2">
+                <LightCard title="1. Highlighted Benefits">
+                  <p>
+                    Enhance communication of campaign perks like tips, products, and discounts. Explore communication
+                    channels beyond email, considering potential downsides of email-based promotions.
+                  </p>
+                </LightCard>
+                <LightCard title="2. Relevant Content">
+                  <p>
+                    Provide Mara with essential baby care information swiftly and straightforwardly. Simplify access
+                    to relevant content to aid her journey as a mother.
+                  </p>
+                </LightCard>
+                <LightCard title="3. Simplified Steps">
+                  <p>
+                    Design an optimized registration flow, considering Mara's busy schedule. Streamline steps to
+                    swiftly register necessary information and reap campaign benefits.
+                  </p>
+                </LightCard>
+                <LightCard title="4. Personalization">
+                  <p>
+                    Formulate personalized engagement strategies for Mara, presenting tailored suggestions and
+                    information aligned with her needs. This could encompass personalized product recommendations,
+                    custom tips, and targeted interactions.
+                  </p>
+                </LightCard>
+              </div>
             </div>
           </ContentContainer>
         </section>
 
-        {/* ── 01 Discovery ──────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="01" title="Discovery" />
-            <TextBlock label="Research approach">
-              <p>
-                After the kickoff, we proceeded with analyzing the provided data. We compiled certain definitions
-                and also gathered information to establish our proto persona, which would assist us in guiding our
-                decisions at the project's outset, particularly in envisioning the journey.
-              </p>
-            </TextBlock>
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <CaseImage src={imgFlyer} alt="Maternity kit flyer" caption="Flyer for illustrative purposes*" aspect="aspect-[4/3]" />
-              <TextBlock label="Maternity Kit">
-                <p>
-                  At Johnson's Baby partner maternity clinics, mothers receive a kit with products and a bag, along
-                  with a flyer containing a discount code. Upon registration, they gain access to tips and
-                  supplementary products for baby care.
-                </p>
-                <p>
-                  Although the discount code from the flyer is immediately usable, Johnson's requires code
-                  verification in the maternity campaign to gather further information about the associated maternity clinic.
-                </p>
-              </TextBlock>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              <CaseImage src={imgActiveCampaign} alt="Active campaign analysis" />
-              <CaseImage src={imgCampaignScreens} alt="Campaign screens" />
-            </div>
-            <TextBlock label="Active campaign analyse">
-              <p>
-                From the previous ongoing campaign, since it was evergreen, we conducted analyses and took notes on
-                the mandatory information required for registration. This process helped us generate insights based
-                on existing practices.
-              </p>
-            </TextBlock>
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <CaseImage src={imgDataDoc} alt="Data accessibility documentation" />
-              <TextBlock label="Data Accessibility Challenges">
-                <p>
-                  Johnson's Baby encountered internal and legal processes that posed challenges to accessing precise
-                  data regarding the target audience. Given these challenges and the scenarios shared by the client,
-                  we opted to define a proto persona. This strategic decision enables us to channel our efforts more
-                  effectively, ensuring higher quality progress in the project.
-                </p>
-              </TextBlock>
-            </div>
-            <CaseImage src={imgPersona} alt="Proto persona definition" />
-            <div className="grid gap-6 md:grid-cols-2">
-              <LightCard title="1. Highlighted Benefits">
-                <p>
-                  Enhance communication of campaign perks like tips, products, and discounts. Explore communication
-                  channels beyond email, considering potential downsides of email-based promotions.
-                </p>
-              </LightCard>
-              <LightCard title="2. Relevant Content">
-                <p>
-                  Provide Mara with essential baby care information swiftly and straightforwardly. Simplify access
-                  to relevant content to aid her journey as a mother.
-                </p>
-              </LightCard>
-              <LightCard title="3. Simplified Steps">
-                <p>
-                  Design an optimized registration flow, considering Mara's busy schedule. Streamline steps to
-                  swiftly register necessary information and reap campaign benefits.
-                </p>
-              </LightCard>
-              <LightCard title="4. Personalization">
-                <p>
-                  Formulate personalized engagement strategies for Mara, presenting tailored suggestions and
-                  information aligned with her needs. This could encompass personalized product recommendations,
-                  custom tips, and targeted interactions.
-                </p>
-              </LightCard>
-            </div>
-          </div>
-        </ContentContainer>
-
         {/* ── 02 Journey ────────────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        <section id="journey" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="02" title="Journey" />
@@ -430,63 +408,67 @@ export function MaternityPage() {
         </section>
 
         {/* ── 03 User flow ──────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="03" title="User flow" />
-            <TextBlock label="Defining the flow">
-              <p>
-                Following the comprehension of the journey, in collaboration with the client and the technology
-                team, we put forth a proposed journey that distinctly outlined every instance where the user would
-                encounter a path relevant to their needs.
-              </p>
-            </TextBlock>
-            <CaseImage src={imgUserFlow} alt="User flow diagram" />
-            <div className="grid gap-8 md:grid-cols-3">
-              <TextBlock label="01">
+        <section id="user-flow">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="03" title="User flow" />
+              <TextBlock label="Defining the flow">
                 <p>
-                  From the user flow, we discussed making it clear in the content that the user would be registering
-                  their data first for future Johnson's campaigns, and subsequently inputting their child's information.
+                  Following the comprehension of the journey, in collaboration with the client and the technology
+                  team, we put forth a proposed journey that distinctly outlined every instance where the user would
+                  encounter a path relevant to their needs.
                 </p>
               </TextBlock>
-              <TextBlock label="02">
-                <p>
-                  Upon presenting the paths the user would take within the campaign, it became evident to the client
-                  at what point they would proceed to log in after registering their information.
-                </p>
-              </TextBlock>
-              <TextBlock label="03">
-                <p>
-                  We also discussed future possibilities within the logged-in area while presenting the user flow,
-                  as it was feasible to identify the types of opportunities we could explore within the logged-in section.
-                </p>
-              </TextBlock>
+              <CaseImage src={imgUserFlow} alt="User flow diagram" />
+              <div className="grid gap-8 md:grid-cols-3">
+                <TextBlock label="01">
+                  <p>
+                    From the user flow, we discussed making it clear in the content that the user would be registering
+                    their data first for future Johnson's campaigns, and subsequently inputting their child's information.
+                  </p>
+                </TextBlock>
+                <TextBlock label="02">
+                  <p>
+                    Upon presenting the paths the user would take within the campaign, it became evident to the client
+                    at what point they would proceed to log in after registering their information.
+                  </p>
+                </TextBlock>
+                <TextBlock label="03">
+                  <p>
+                    We also discussed future possibilities within the logged-in area while presenting the user flow,
+                    as it was feasible to identify the types of opportunities we could explore within the logged-in section.
+                  </p>
+                </TextBlock>
+              </div>
             </div>
-          </div>
-        </ContentContainer>
+          </ContentContainer>
+        </section>
 
         <Divider />
 
         {/* ── 04 Wireframes ─────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="04" title="Wireframes" />
-            <TextBlock label="Structuring the screens">
-              <p>
-                Perfect, now with the paths more defined and an understanding of the business strategy within the
-                campaign — how it would work for both users and data collection in a new integration for future
-                Johnson's campaigns — we commenced the construction of our wireframes.
-              </p>
-            </TextBlock>
-            <div className="grid gap-4 md:grid-cols-3">
-              <CaseImage src={imgWireframe1} alt="Wireframe — registration flow" aspect="aspect-[3/4]" />
-              <CaseImage src={imgWireframe2} alt="Wireframe — participation flow" aspect="aspect-[3/4]" />
-              <CaseImage src={imgWireframe3} alt="Wireframe — logged area" aspect="aspect-[3/4]" />
+        <section id="wireframes">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="04" title="Wireframes" />
+              <TextBlock label="Structuring the screens">
+                <p>
+                  Perfect, now with the paths more defined and an understanding of the business strategy within the
+                  campaign — how it would work for both users and data collection in a new integration for future
+                  Johnson's campaigns — we commenced the construction of our wireframes.
+                </p>
+              </TextBlock>
+              <div className="grid gap-4 md:grid-cols-3">
+                <CaseImage src={imgWireframe1} alt="Wireframe — registration flow" aspect="aspect-[3/4]" />
+                <CaseImage src={imgWireframe2} alt="Wireframe — participation flow" aspect="aspect-[3/4]" />
+                <CaseImage src={imgWireframe3} alt="Wireframe — logged area" aspect="aspect-[3/4]" />
+              </div>
             </div>
-          </div>
-        </ContentContainer>
+          </ContentContainer>
+        </section>
 
         {/* ── 05 Layout ─────────────────────────────────────────────────────── */}
-        <section className="w-full bg-[#f5f5f5]">
+        <section id="layout" className="w-full bg-[#f5f5f5]">
           <ContentContainer className="py-16 md:py-[120px]">
             <div className="flex flex-col gap-16">
               <SectionHeading eyebrow="05" title="Layout" />
@@ -506,18 +488,20 @@ export function MaternityPage() {
         </section>
 
         {/* ── 06 Delivery ───────────────────────────────────────────────────── */}
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="06" title="Delivery" />
-            <TextBlock label="Interactive Prototype">
-              <p>
-                The final prototype was delivered with all flows — registration, code validation, and the logged-in
-                area — fully prototypable in Figma, enabling the technology team and client to navigate and validate
-                every interaction before development began.
-              </p>
-            </TextBlock>
-          </div>
-        </ContentContainer>
+        <section id="delivery">
+          <ContentContainer className="py-16 md:py-[120px]">
+            <div className="flex flex-col gap-16">
+              <SectionHeading eyebrow="06" title="Delivery" />
+              <TextBlock label="Interactive Prototype">
+                <p>
+                  The final prototype was delivered with all flows — registration, code validation, and the logged-in
+                  area — fully prototypable in Figma, enabling the technology team and client to navigate and validate
+                  every interaction before development began.
+                </p>
+              </TextBlock>
+            </div>
+          </ContentContainer>
+        </section>
 
         <Divider />
 

@@ -41,6 +41,7 @@ export function ScrollBar() {
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setDragging(true);
+
     const startY = e.clientY;
     const startScroll = window.scrollY;
     const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -49,7 +50,8 @@ export function ScrollBar() {
 
     function onMove(ev: MouseEvent) {
       const delta = ev.clientY - startY;
-      window.scrollTo({ top: startScroll + (delta / (trackH - thumbPx)) * total });
+      const target = Math.max(0, Math.min(total, startScroll + (delta / (trackH - thumbPx)) * total));
+      window.scrollTo({ top: target });
     }
     function onUp() {
       setDragging(false);
