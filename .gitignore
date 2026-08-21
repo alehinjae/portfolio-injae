@@ -5,6 +5,4 @@ dist/
 
 .vercel
 
-# Review comments (local only)
-review-comments.json
 .claude/settings.local.json
