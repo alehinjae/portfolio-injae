@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { useScrollDirection } from "../hooks/useScrollDirection";
+import { HeaderLogo } from "./HeaderLogo";
 
 export function Header() {
   const { pathname } = useLocation();
@@ -14,8 +15,8 @@ export function Header() {
       ].join(" ")}
     >
       <div className="mx-auto flex max-w-[1188px] items-center justify-between px-5 py-4 md:px-8">
-        <Link to="/" className="no-underline">
-          <span className="text-[18px] font-normal text-[#757575]">Alexandre In Jae</span>
+        <Link to="/" className="no-underline" aria-label="Alexandre In Jae, home">
+          <HeaderLogo />
         </Link>
         <nav className="flex items-center">
           <Link to="/" className="no-underline">
