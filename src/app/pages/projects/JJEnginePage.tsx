@@ -1,7 +1,20 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 import { ContentContainer } from "../../components/design-system/ContentContainer";
 import { Scrollspy } from "../../components/design-system/Scrollspy";
 import type { ReactNode } from "react";
+
+import imgMaternity from "../../../imports/engine/maternity-home.webp";
+import imgWireflow from "../../../imports/engine/wireflow-138951.webp";
+import imgSignup from "../../../imports/engine/neutrogena-signup.webp";
+import imgVerify from "../../../imports/engine/neutrogena-verify.webp";
+import imgAccount from "../../../imports/engine/neutrogena-account.webp";
+import imgBrandNeutrogena from "../../../imports/engine/brand-neutrogena.webp";
+import imgBrandTylenol from "../../../imports/engine/brand-tylenol.webp";
+import imgBrandNeostrata from "../../../imports/engine/brand-neostrata.webp";
+import imgBrandListerine from "../../../imports/engine/brand-listerine.webp";
+import imgSgPrinciples from "../../../imports/engine/sg-principles.webp";
+import imgSgComponents from "../../../imports/engine/sg-components.webp";
 
 // ─── Animation primitives ────────────────────────────────────────────────────
 
@@ -35,589 +48,521 @@ function FadeIn({ children, delay = 0, className = "" }: { children: ReactNode; 
   );
 }
 
-// ─── Divider ─────────────────────────────────────────────────────────────────
+// ─── Components ──────────────────────────────────────────────────────────────
 
-function Divider() {
-  return (
-    <div className="px-5 md:px-8">
-      <div className="mx-auto max-w-[1188px] border-t border-[#e3e3e3]" />
-    </div>
-  );
-}
+const NAVY = "#0e2346";
+const BLUE = "#2e8fdc";
 
-// ─── Image placeholder ────────────────────────────────────────────────────────
-
-function ImagePlaceholder({ label, aspect = "aspect-[16/9]" }: { label: string; aspect?: string }) {
-  return (
-    <FadeIn>
-      <div className={`w-full overflow-hidden rounded-[16px] bg-[#f0f0f0] ${aspect} flex items-center justify-center`}>
-        <p className="text-[13px] font-light text-[#b3b3b3] px-8 text-center">{label}</p>
-      </div>
-    </FadeIn>
-  );
-}
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
+const SCROLLSPY_ITEMS = [
+  { id: "context", label: "Context" },
+  { id: "insight", label: "Insight" },
+  { id: "architecture", label: "Architecture" },
+  { id: "states", label: "States" },
+  { id: "brands", label: "Brands" },
+  { id: "style-guide", label: "Style guide" },
+  { id: "impact", label: "Impact" },
+];
 
 function SectionHeading({ eyebrow, title, light = false }: { eyebrow?: string; title: string; light?: boolean }) {
   return (
     <FadeUp>
       <div className="flex flex-col gap-3">
         {eyebrow && (
-          <p className={`text-[12px] font-normal uppercase tracking-[0.1em] ${light ? "text-white/40" : "text-[#b3b3b3]"}`}>{eyebrow}</p>
+          <p className={`text-[12px] font-normal uppercase tracking-[0.1em] ${light ? "text-[#d6e8fa]" : "text-[#2e8fdc]"}`}>{eyebrow}</p>
         )}
-        <h2 className={`text-[36px] font-light leading-tight md:text-[56px] ${light ? "text-white" : "text-[#1f1f1f]"}`}>{title}</h2>
+        <h2 className={`text-[34px] font-light leading-tight md:text-[52px] ${light ? "text-white" : "text-[#14181f]"}`}>{title}</h2>
       </div>
     </FadeUp>
   );
 }
 
-function TextBlock({ label, children, light = false }: { label?: string; children: ReactNode; light?: boolean }) {
+function Lead({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
     <FadeUp>
-      <div className="flex flex-col gap-4">
-        {label && <p className={`text-[20px] font-normal md:text-[24px] ${light ? "text-white" : "text-[#1f1f1f]"}`}>{label}</p>}
-        <div className={`flex flex-col gap-4 text-[16px] font-light leading-relaxed ${light ? "text-white/60" : "text-[#5a5a5a]"}`}>
-          {children}
-        </div>
-      </div>
+      <p className={`max-w-[820px] text-[17px] font-light leading-relaxed ${light ? "text-[#d6e8fa]" : "text-[#5c626e]"}`}>{children}</p>
     </FadeUp>
   );
 }
 
-function LightCard({ title, children }: { title: string; children: ReactNode }) {
+function CaseImage({ src, alt = "", caption, frame = "", light = false }: { src: string; alt?: string; caption?: string; frame?: string; light?: boolean }) {
   return (
-    <FadeUp>
-      <div className="rounded-[16px] bg-[#f5f5f5] p-8 md:p-10">
-        <p className="text-[20px] font-normal text-[#1f1f1f] md:text-[24px]">{title}</p>
-        <div className="mt-5 flex flex-col gap-4 text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-          {children}
+    <FadeIn>
+      <figure className="w-full">
+        <div className={`overflow-hidden rounded-[16px] ${frame}`}>
+          <img src={src} alt={alt} loading="lazy" className="w-full" />
         </div>
-      </div>
-    </FadeUp>
+        {caption && <figcaption className={`mt-3 text-[13px] font-light ${light ? "text-[#d6e8fa]/80" : "text-[#8c929e]"}`}>{caption}</figcaption>}
+      </figure>
+    </FadeIn>
   );
 }
 
-function DarkCard({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <FadeUp>
-      <div className="rounded-[16px] bg-[#1f1f1f] p-8 md:p-10">
-        <p className="text-[20px] font-normal text-white md:text-[24px]">{title}</p>
-        <div className="mt-5 flex flex-col gap-4 text-[16px] font-light leading-relaxed text-white/60">
-          {children}
-        </div>
-      </div>
-    </FadeUp>
-  );
-}
+const timeline = [
+  ["2019–20", "Hotsites per campaign", "48h Poderosas, Pureza, Sundown, Hipoglós: a full journey, redesigned every time.", false],
+  ["2021", "Maternity", "The first promise of a single sign-up for Johnson's campaigns.", false],
+  ["Apr 2021", "Engine Express", "The Neutrogena scope already asks for the hotsite to be built on the existing engine.", false],
+  ["2022", "New engine · 138951", "Wireframes and wireflow: one account, many campaigns.", true],
+  ["2022", "Neutrogena · 188650", "The reference spec for the account anatomy.", true],
+  ["2022–23", "4 more brands", "Listerine, Tylenol, Neostrata and Mexico: same grid, different brand.", true],
+] as const;
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+const states = [
+  ["00", "Sign-up", "Personal and account data, with login and user headers", false],
+  ["01 A/B", "Verify your email", "Pending and “not confirmed yet”, with resend", true],
+  ["02", "Email verified", "Confirmation and “Access account”", false],
+  ["03 A/B", "Login", "Login, and login with confirmation resend", true],
+  ["04–05", "Forgot password", "Two-step recovery", true],
+  ["06–08", "My account", "Personal data and password change", false],
+  ["10–11", "Editing the account", "Data editing with validation", false],
+  ["12–16", "Email change", "A/B branches and notices to the old and new address", true],
+  ["17", "Logged-in area", "Account with enrolled campaigns", false],
+  ["—", "404 · toast · promo", "Error, feedback, and closed promotion vs. logged-in area", true],
+] as const;
 
-const overview = [
-  { title: "My Role", items: ["UX/UI Design", "Experience Architecture", "Design System"] },
-  { title: "Tools", items: ["Figma", "Sketch", "FigJam"] },
-  { title: "Team", items: ["1 UX/UI Designer", "1 UX Lead", "1 Project Manager", "Frontend & Backend Devs"] },
-  { title: "Timeline", items: ["2019–2023 (5 years)", "Engine pivot: 2022", "Internationalization: 2023"] },
-];
-
-const SCROLLSPY_ITEMS = [
-  { id: "challenge", label: "The Challenge" },
-  { id: "architecture", label: "Engine Architecture" },
-  { id: "flow-design", label: "Flow Design" },
-  { id: "compliance", label: "Compliance & Legal" },
-  { id: "design-system", label: "Design System" },
-  { id: "impact", label: "Scale & Impact" },
+const brands = [
+  { name: "Neutrogena", ticket: "188650", delivery: "HTML spec (v1–v3, ~57 screens) + 404 package", note: "Reference spec, with an internal style guide" },
+  { name: "Listerine", ticket: "202188", delivery: "JPG layouts per artboard + style guide", note: "Screen codes match Neutrogena 1:1", to: "/projects/listerine" },
+  { name: "Tylenol", ticket: "204318", delivery: "HTML spec with 57 screens", note: "Style guide numbered at the end of the spec (screens 54–57)" },
+  { name: "Neostrata", ticket: "218177", delivery: "JPG layouts + separate editable file", note: "No B branch for verification; 404 on code 08" },
+  { name: "Neutrogena Mexico", ticket: "214397", delivery: "JPG layouts (desktop, email, mobile)", note: "Revisited in 2023 to complete the logged-in area and 404" },
 ];
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export function JJEnginePage() {
   return (
-    <main className="bg-white font-light text-[#1f1f1f]">
+    <main className="bg-white font-light text-[#14181f]">
       <Scrollspy items={SCROLLSPY_ITEMS} />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="flex h-[500px] flex-col justify-end bg-[#1a1a1a]">
-        <ContentContainer className="pb-12 md:pb-16">
-          <motion.p
-            className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/40"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease, delay: 0.1 }}
-          >
-            Johnson &amp; Johnson — Mirum Agency
-          </motion.p>
-          <motion.h1
-            className="mt-4 text-[40px] font-light leading-tight text-white md:text-[64px]"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-          >
-            J&amp;J Experience Engine
-          </motion.h1>
-          <motion.p
-            className="mt-4 text-[18px] font-light text-white/60 md:text-[24px]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease, delay: 0.15 }}
-          >
-            A scalable authentication &amp; CRM platform serving 9 consumer brands across Brazil and Mexico.
-          </motion.p>
-        </ContentContainer>
-      </section>
-
-      {/* ── Intro ─────────────────────────────────────────────────────────── */}
-      <ContentContainer className="py-16 md:py-[120px]">
-        <div className="grid gap-10 md:grid-cols-2 md:gap-[72px]">
-          <FadeUp>
-            <h2 className="text-[28px] font-light leading-snug text-[#1f1f1f] md:text-[36px]">
-              From isolated campaigns to a reusable authentication engine — built at enterprise scale.
-            </h2>
-          </FadeUp>
-          <FadeUp delay={0.1} className="flex flex-col gap-6 text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-            <p>
-              Over five years at Mirum Agency, I helped design the digital experience infrastructure for Johnson &amp; Johnson's consumer portfolio in Brazil —{" "}
-              <strong className="font-normal text-[#1f1f1f]">including Listerine, Neutrogena, Johnson's Baby, Hipoglos, Neostrata, and Kenvue.</strong>
-            </p>
-            <p>
-              What started as individual campaign hotsites evolved into a{" "}
-              <strong className="font-normal text-[#1f1f1f]">
-                unified experience engine: a reusable authentication and CRM system
-              </strong>{" "}
-              that eliminated redundant design work, consolidated user data across brands, and scaled to international markets without a redesign.
-            </p>
-          </FadeUp>
-        </div>
-      </ContentContainer>
-
-      {/* ── Metrics ───────────────────────────────────────────────────────── */}
-      <ContentContainer className="pb-16 md:pb-[120px]">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[
-            { value: "9", label: "Brands Served" },
-            { value: "16", label: "Core Flow States" },
-            { value: "~80%", label: "Cost Reduction per Launch" },
-            { value: "5 yrs", label: "Production Timeline" },
-          ].map((m, i) => (
-            <FadeUp key={m.label} delay={i * 0.1} className="flex flex-col items-center gap-4 py-8 text-center">
-              <p className="text-[48px] font-light leading-none text-[#1f1f1f] md:text-[64px]">{m.value}</p>
-              <p className="text-[14px] font-light text-[#5a5a5a] md:text-[16px]">{m.label}</p>
-            </FadeUp>
-          ))}
-        </div>
-      </ContentContainer>
-
-      {/* ── Overview ──────────────────────────────────────────────────────── */}
-      <ContentContainer className="pb-16 md:pb-[120px]">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-[72px]">
-          {overview.map((item, i) => (
-            <FadeUp key={item.title} delay={i * 0.08} className="flex flex-col gap-3 border-t border-[#e3e3e3] pt-6">
-              <p className="text-[16px] font-normal text-[#1f1f1f]">{item.title}</p>
-              <ul className="flex flex-col gap-1 text-[14px] font-light text-[#5a5a5a]">
-                {item.items.map((it) => <li key={it}>{it}</li>)}
-              </ul>
-            </FadeUp>
-          ))}
-        </div>
-      </ContentContainer>
-
-      <Divider />
-
-      {/* ── Challenge ─────────────────────────────────────────────────────── */}
-      <section id="challenge">
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="01" title="The Challenge" />
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="A structural problem hiding in plain sight">
-                <p>
-                  A company with 9 consumer brands running digital campaigns faces a recurring structural issue: every promotion, every hotsite, every seasonal campaign needs login and registration. When each initiative reinvents that flow from scratch, the cost is threefold.
-                </p>
-                <p>
-                  This wasn't a UX problem. It was a <strong className="font-normal text-[#1f1f1f]">systems architecture problem</strong> — and solving it required thinking beyond the screen.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="Archive structure — 2019 isolated campaigns" aspect="aspect-[4/3]" />
+      <section className="overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <ContentContainer className="pt-16 md:pt-24">
+          <div className="grid items-end gap-12 md:grid-cols-[1.1fr_1fr]">
+            <div className="flex flex-col gap-7 pb-14 md:pb-24">
+              <motion.p
+                className="text-[13px] font-normal uppercase tracking-[0.1em] text-white/60"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, ease, delay: 0.1 }}
+              >
+                Johnson &amp; Johnson · Experience architecture · 2019–2023
+              </motion.p>
+              <motion.h1
+                className="text-[38px] font-light leading-[1.12] text-white md:text-[54px]"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease }}
+              >
+                One account, many brands: from disposable hotsites to a Johnson's sign-up engine
+              </motion.h1>
+              <motion.p
+                className="text-[17px] font-light leading-relaxed text-[#d6e8fa] md:text-[19px]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: 0.15 }}
+              >
+                On the Johnson's account, every promotion redesigned login, sign-up and the logged-in area from scratch.
+                Over four years, that work became a system: an account anatomy specified once and applied to Neutrogena,
+                Listerine, Tylenol, Neostrata and Neutrogena Mexico.
+              </motion.p>
+              <motion.div
+                className="grid grid-cols-3 gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: 0.25 }}
+              >
+                {[["5", "brands on the same grid"], ["00–17", "screen codes, with A/B branches"], ["1", "account for N campaigns"]].map(([v, l]) => (
+                  <div key={v} className="rounded-[14px] bg-white/[0.07] p-4">
+                    <p className="text-[26px] font-light text-white">{v}</p>
+                    <p className="mt-1 text-[13px] font-normal leading-snug text-[#d6e8fa]">{l}</p>
+                  </div>
+                ))}
+              </motion.div>
+              <motion.div
+                className="grid grid-cols-3 gap-6 text-[14px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, ease, delay: 0.35 }}
+              >
+                {[["Role", "UX/UI · experience architecture · handoff specs"], ["Client", "Johnson & Johnson Consumer Health, via Mirum"], ["Period", "2019 → 2023"]].map(([k, v]) => (
+                  <div key={k}>
+                    <p className="text-[12px] font-normal text-[#d6e8fa]">{k}</p>
+                    <p className="mt-1 font-light leading-snug text-white">{v}</p>
+                  </div>
+                ))}
+              </motion.div>
             </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              <LightCard title="Production Cost">
-                <p>
-                  Redesigning the same 36+ screens for each campaign — login, registration, email verification, password recovery, logged area — for every brand, every launch cycle.
-                </p>
-              </LightCard>
-              <LightCard title="Data Fragmentation">
-                <p>
-                  Separate user databases per campaign made it impossible to build cross-brand user histories, unified profiles, or meaningful CRM segmentation.
-                </p>
-              </LightCard>
-              <LightCard title="Trust Inconsistency">
-                <p>
-                  Users encountered different interfaces for the same actions across brands of the same group — undermining the sense of a unified, reliable ecosystem.
-                </p>
-              </LightCard>
-            </div>
-
-            <div className="grid gap-10 md:grid-cols-2 md:gap-[72px] md:items-start">
-              <TextBlock label="Two acts — the archive tells the story">
-                <p>
-                  Looking at the project archive over 5 years reveals the evolution in two clear phases. In Act 1 (2019–2021), every project folder contained its own privacy policy document, its own login screens, its own registration flow. The redundancy was structural.
-                </p>
-                <p>
-                  In Act 2 (2022), the folder structure changed. Projects gained formal ticket IDs, and three separate login/registration deliveries — for Neutrogena, Listerine, and Neostrata — shared <strong className="font-normal text-[#1f1f1f]">identical internal anatomy</strong>. That's not a design coincidence. That's a system.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="Wireflow v1/v2 — J&J_NovaEngine_Promos (2022)" aspect="aspect-[4/3]" />
-            </div>
+            <motion.div
+              className="hidden grid-cols-2 items-end gap-5 md:grid"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease, delay: 0.2 }}
+            >
+              <div className="h-[600px] overflow-hidden rounded-t-[18px] shadow-2xl">
+                <img src={imgBrandNeutrogena} alt="Neutrogena sign-up" className="w-full" />
+              </div>
+              <div className="h-[540px] overflow-hidden rounded-t-[18px] shadow-2xl">
+                <img src={imgBrandListerine} alt="Listerine sign-up" className="w-full" />
+              </div>
+            </motion.div>
           </div>
         </ContentContainer>
       </section>
 
-      {/* ── Architecture ──────────────────────────────────────────────────── */}
-      <section id="architecture" className="w-full bg-[#1f1f1f]">
+      {/* ── 01 Context ────────────────────────────────────────────────────── */}
+      <section id="context">
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16 md:gap-[120px]">
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <div className="flex flex-col gap-8">
-                <SectionHeading eyebrow="02" title="Engine Architecture" light />
-                <FadeUp delay={0.1}>
-                  <p className="text-[16px] font-light leading-relaxed text-white/60">
-                    An Engine, in experience architecture, is a set of flows and components that solves a fixed set of problems — while accepting contextual variables. The J&amp;J Engine resolves authentication across any brand without being rebuilt each time.
-                  </p>
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="01 · Context" title="Every promotion reinvented the account" />
+            <Lead>
+              Between 2019 and 2020, each campaign had its full journey designed from scratch: how to participate, sign-up,
+              login, proof of purchase, logged-in area, forgot password, rules, 404 and emails. The same group asked for a
+              different login on every hotsite, and every database was born and died with its promotion.
+            </Lead>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                ["Rework on every launch", "Dozens of account screens redesigned per brand and per campaign."],
+                ["Data that doesn't connect", "One database per promotion rules out a single history and profile across brands."],
+                ["Inconsistent trust", "For participants, the account didn't feel like a system, just a new form every time."],
+              ].map(([t, d], i) => (
+                <FadeUp key={t} delay={i * 0.06}>
+                  <div className="h-full rounded-[16px] bg-[#f6f7f9] p-7">
+                    <p className="text-[18px] font-normal text-[#14181f]">{t}</p>
+                    <p className="mt-2 text-[14px] font-light leading-relaxed text-[#5c626e]">{d}</p>
+                  </div>
                 </FadeUp>
+              ))}
+            </div>
+            <p className="pt-4 text-[12px] font-normal uppercase tracking-[0.1em] text-[#8c929e]">The account's arc</p>
+            <div className="grid gap-8 md:grid-cols-6 md:gap-4">
+              {timeline.map(([y, t, d, hi], i) => (
+                <FadeUp key={t} delay={i * 0.05} className="flex flex-col gap-2">
+                  <div className="flex items-center">
+                    <span className="h-3.5 w-3.5 shrink-0 rounded-full" style={{ backgroundColor: hi ? BLUE : NAVY }} />
+                    <span className="h-[2px] w-full bg-[#e2e6ec]" />
+                  </div>
+                  <p className="text-[13px] font-normal" style={{ color: hi ? BLUE : NAVY }}>{y}</p>
+                  <p className="text-[16px] font-normal leading-snug text-[#14181f]">{t}</p>
+                  <p className="text-[13px] font-light leading-relaxed text-[#5c626e]">{d}</p>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </ContentContainer>
+      </section>
+
+      {/* ── 02 Insight ────────────────────────────────────────────────────── */}
+      <section id="insight" className="bg-[#f0f6fd]">
+        <ContentContainer className="py-16 md:py-[120px]">
+          <div className="flex flex-col gap-12">
+            <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+              <div className="flex flex-col gap-6">
+                <SectionHeading eyebrow="02 · Insight" title="The campaign changes. The account doesn't." />
+                <Lead>
+                  The shift shows up first in the Maternity interface, in 2021: the form stops belonging to the promotion
+                  and starts belonging to the brand. From then on, the work starts with the flow and the account model, and
+                  only then with the campaign layout.
+                </Lead>
               </div>
-              <ImagePlaceholder label="Engine architecture diagram — core flow vs. brand variables" aspect="aspect-[4/3]" />
+              <FadeUp>
+                <blockquote className="rounded-[16px] border-l-4 bg-white p-8 md:p-10" style={{ borderColor: BLUE }}>
+                  <p className="text-[22px] font-light leading-relaxed text-[#14181f] md:text-[24px]">
+                    “This is the only time you'll fill in this information to take part in JOHNSON'S® campaigns.”
+                  </p>
+                  <footer className="mt-4 text-[13px] font-normal text-[#8c929e]">Sign-up form copy · Maternity campaign, 2021 (translated)</footer>
+                </blockquote>
+              </FadeUp>
             </div>
-
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-center">
-              <ImagePlaceholder label="Neutrogena LoginCadastro — v1 screen anatomy (57 specs)" aspect="aspect-[4/3]" />
-              <TextBlock label="The same anatomy across three brands" light>
-                <p>
-                  The Neutrogena Login/Registration project in 2022 delivered 57 HTML specification files in v1, and 44 screens in v2/v3. The same sequence — from screen 00 (Registration) to screen 16 (Email Change Complete) — was replicated identically for Listerine and Neostrata.
-                </p>
-                <p>
-                  Same numbering. Same logic. Same state coverage. Only the visual layer changed. This is proof of system — not coincidence of design.
-                </p>
-              </TextBlock>
+            <div className="grid gap-6 md:grid-cols-[0.8fr_1.4fr] md:items-start">
+              <CaseImage src={imgMaternity} alt="Maternity campaign home" caption="Maternity: the home sells a single sign-up, tips and products, not just the promotion" frame="max-h-[640px]" />
+              <CaseImage src={imgWireflow} alt="138951 logged-in area wireflow" caption="138951: wireflow of the logged-in area, with enrolled and open campaigns" />
             </div>
+          </div>
+        </ContentContainer>
+      </section>
 
+      {/* ── 03 Architecture ───────────────────────────────────────────────── */}
+      <section id="architecture">
+        <ContentContainer className="py-16 md:py-[120px]">
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="03 · Architecture" title="What the Johnson's account holds" />
+            <Lead>
+              Before any screen, the model: whatever is shared by every campaign lives in the account; whatever belongs to a
+              single promotion becomes a set of fields plugged into it.
+            </Lead>
             <FadeUp>
-              <div className="grid gap-4 md:grid-cols-3">
-                {[
-                  { brand: "Neutrogena", detail: "188650 — v1: 57 specs, v2/v3: 44 screens" },
-                  { brand: "Listerine", detail: "202188 — Full engine deployment, brand variables applied" },
-                  { brand: "Neostrata", detail: "218177 — Engine extended to skincare segment" },
-                ].map((item) => (
-                  <div key={item.brand} className="rounded-[16px] border border-white/10 p-8">
-                    <p className="text-[20px] font-normal text-white">{item.brand}</p>
-                    <p className="mt-3 text-[14px] font-light leading-relaxed text-white/40">{item.detail}</p>
+              <div className="flex flex-col items-center">
+                <div className="rounded-[14px] px-10 py-5 text-center" style={{ backgroundColor: NAVY }}>
+                  <p className="text-[22px] font-normal text-white">Johnson's account</p>
+                  <p className="mt-1 text-[13px] font-normal text-[#d6e8fa]">1 sign-up · verified email · single login</p>
+                </div>
+                <span className="h-8 w-[2px] bg-[#e2e6ec]" />
+                <span className="hidden h-[2px] w-3/4 bg-[#e2e6ec] md:block" />
+              </div>
+            </FadeUp>
+            <div className="grid gap-4 md:grid-cols-4">
+              {[
+                ["Personal & contact data", "Name, birth date, gender, phone, city; editable in the logged-in area."],
+                ["Enrolled campaigns", "Products, receipts and lucky numbers for each promotion."],
+                ["Open campaigns", "A shortcut to join live promotions with the same login."],
+                ["Privacy (LGPD)", "Cookies, personalization and data-use notice as a block of the account."],
+              ].map(([t, d], i) => (
+                <FadeUp key={t} delay={i * 0.06}>
+                  <div className="h-full rounded-[16px] bg-[#f0f6fd] p-6">
+                    <p className="text-[17px] font-normal" style={{ color: NAVY }}>{t}</p>
+                    <p className="mt-2 text-[14px] font-light leading-relaxed text-[#5c626e]">{d}</p>
                   </div>
+                </FadeUp>
+              ))}
+            </div>
+            <FadeUp>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-[14px] font-normal text-[#14181f]">Campaign fields, plugged into the account:</p>
+                {["Hipoglós · PIX/bank refund", "Listerine · receipt and products", "Mothers & Children · children's data"].map((s) => (
+                  <span key={s} className="rounded-full border px-4 py-2 text-[13px] font-normal" style={{ borderColor: BLUE, color: BLUE }}>{s}</span>
                 ))}
               </div>
             </FadeUp>
-
+            <p className="text-[12px] font-light text-[#8c929e]">Sources: logged-in area requirements document (Maternity, 2021) and the new engine wireframes (138951, 2022).</p>
           </div>
         </ContentContainer>
       </section>
 
-      {/* ── Flow Design ───────────────────────────────────────────────────── */}
-      <section id="flow-design">
+      {/* ── 04 States ─────────────────────────────────────────────────────── */}
+      <section id="states" className="bg-[#f6f7f9]">
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="03" title="Flow Design" />
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="16 states. Every edge case covered.">
-                <p>
-                  What appears simple on the surface — a login page, a sign-up form — conceals significant functional depth. Each flow in the engine covers not just the happy path, but every state of error, delay, and alternative.
-                </p>
-                <p>
-                  The engine core handles four primary flows, each with full state coverage: Registration, Email Verification, Password Recovery, and Email Change.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="Full state map — 16 core screens + 5 email templates" aspect="aspect-[4/3]" />
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="04 · State anatomy" title="Design the bad states before the key visual" />
+            <Lead>
+              The Neutrogena spec (188650) became the reference: every account screen got a code, including the paths almost
+              nobody designs. The same codes reappear in the other brands, which turns each new application into a reskin,
+              not a new project.
+            </Lead>
+            <div className="flex flex-wrap gap-6 text-[13px] text-[#5c626e]">
+              <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: NAVY }} />Main path</span>
+              <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: BLUE }} />Exception or A/B branch</span>
             </div>
-
-            <FadeUp delay={0.1}>
-              <div className="grid gap-4 md:grid-cols-4">
-                {[
-                  { code: "00–02", label: "Registration", desc: "Progressive capture — credentials, personal data, contextual profile" },
-                  { code: "03–05", label: "Login & Recovery", desc: "Login + forgot password A/B with resend state" },
-                  { code: "06–11", label: "Logged Area", desc: "Personal data dashboard, password change, profile edit" },
-                  { code: "12–16", label: "Email Change", desc: "5-step secure flow with dual-email verification" },
-                ].map((item) => (
-                  <div key={item.code} className="flex flex-col gap-3 border-t-2 border-[#1f1f1f] pt-4">
-                    <span className="text-[11px] font-normal uppercase tracking-[0.1em] text-[#b3b3b3]">{item.code}</span>
-                    <span className="text-[16px] font-normal text-[#1f1f1f]">{item.label}</span>
-                    <span className="text-[14px] font-light leading-relaxed text-[#5a5a5a]">{item.desc}</span>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+              {states.map(([code, t, d, ex], i) => (
+                <FadeUp key={code + t} delay={(i % 5) * 0.04}>
+                  <div className={`h-full rounded-[14px] bg-white p-5 ${ex ? "border-[1.5px]" : "border"}`} style={{ borderColor: ex ? BLUE : "#e2e6ec" }}>
+                    <p className="text-[20px] font-light" style={{ color: ex ? BLUE : NAVY }}>{code}</p>
+                    <p className="mt-1 text-[15px] font-normal leading-snug text-[#14181f]">{t}</p>
+                    <p className="mt-1 text-[12px] font-light leading-relaxed text-[#5c626e]">{d}</p>
                   </div>
-                ))}
-              </div>
-            </FadeUp>
-
-            <Divider />
-
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <ImagePlaceholder label="Email change flow — screens 12–16 with A/B states" aspect="aspect-[4/3]" />
-              <TextBlock label="The email change flow — enterprise-level security by design">
-                <p>
-                  The most sophisticated flow in the engine: changing an account email without compromising security. The process spans 5 screen states and 2 transactional email templates — one confirming the new address, one alerting the old address as a security measure.
-                </p>
-                <p>
-                  Designing this flow as a POC before the formal delivery (ticket 171115_POC_FluxoTrocaEmail) was itself a strategic decision — validating the logic before committing to full specification.
-                </p>
-                <p>
-                  This is <strong className="font-normal text-[#1f1f1f]">enterprise transactional design</strong>, not campaign hotsite design.
-                </p>
-              </TextBlock>
+                </FadeUp>
+              ))}
             </div>
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="Progressive registration — solving the data/friction tradeoff">
-                <p>
-                  The classic dilemma: the more data we request, the fewer users complete registration. The engine's solution was progressive capture — collecting minimum credentials to authenticate, then enriching the CRM profile over time.
-                </p>
-                <p>
-                  Step 1 captures email and password. Step 2 collects personal data. Step 3 gathers contextual information — gestational phase, product usage, brand preference. Each step feeds the CRM with increasingly qualified data.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="Progressive registration flow — 3-step data capture" aspect="aspect-[4/3]" />
+            <div className="grid gap-6 md:grid-cols-[0.8fr_1fr_1fr] md:items-start">
+              <CaseImage src={imgSignup} alt="Neutrogena sign-up screen" caption="00 · Sign-up: data for “exclusive content and tips”, not just one promotion" frame="max-h-[720px]" />
+              <CaseImage src={imgVerify} alt="Neutrogena verify email screen" caption="01 · Verify your email, with resend" />
+              <CaseImage src={imgAccount} alt="Neutrogena my account screen" caption="17 · My account: data, contact and password" />
             </div>
-
           </div>
         </ContentContainer>
       </section>
 
-      <Divider />
-
-      {/* ── Compliance ────────────────────────────────────────────────────── */}
-      <section id="compliance">
+      {/* ── 05 Decisions ──────────────────────────────────────────────────── */}
+      <section>
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="04" title="Compliance by Design" />
+          <div className="flex flex-col gap-8">
+            <SectionHeading eyebrow="05 · Decisions" title="Three decisions that turned screens into a system" />
+            {[
+              ["01", "A single account before the campaign's key visual", "Designing only the promotion ships faster now, but perpetuates rework and isolated databases on every launch.", "Maternity and the logged-in area document define the model in 2021; the 138951 engine formalizes navigation and a multi-campaign logged-in area in 2022."],
+              ["02", "Fixed anatomy, variable brand", "Full freedom per brand feels more “custom”, but breaks parity across brands and complicates handoff. A rigid grid can feel limiting for branding.", "Identical 00–17 codes between Neutrogena and Listerine; Tylenol, Neostrata and Mexico follow the same numbering, with small documented differences."],
+              ["03", "Compliance inside the flow", "Keeping rules and LGPD only in a PDF is legally safe and fragile as an experience.", "Consents (including international data transfer), policy and privacy preferences become steps and blocks of the account, not attachments."],
+            ].map(([n, t, to, r]) => (
+              <FadeUp key={n}>
+                <div className="flex flex-col gap-4 rounded-[16px] bg-[#f6f7f9] p-8 md:flex-row md:gap-10">
+                  <p className="text-[40px] font-light" style={{ color: BLUE }}>{n}</p>
+                  <div>
+                    <p className="text-[20px] font-normal text-[#14181f]">{t}</p>
+                    <p className="mt-3 text-[14px] font-light leading-relaxed text-[#5c626e]">Trade-off: {to}</p>
+                    <p className="mt-2 text-[14px] font-normal leading-relaxed text-[#14181f]">Result: {r}</p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </ContentContainer>
+      </section>
 
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="LGPD as a design challenge">
-                <p>
-                  Brazil's General Data Protection Law (LGPD) came into force in 2020. By 2022, it had been fully absorbed into the engine's architecture — not as an afterthought, but as a structural component.
-                </p>
-                <p>
-                  The evolution from 2019 to 2022 is instructive: compliance went from a destination (a standalone privacy policy page the user could navigate to) to a component — woven into every touchpoint of the registration flow.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="LGPD component evolution — 2019 standalone vs. 2022 integrated" aspect="aspect-[4/3]" />
+      {/* ── 06 Brands ─────────────────────────────────────────────────────── */}
+      <section id="brands" className="bg-[#f0f6fd]">
+        <ContentContainer className="py-16 md:py-[120px]">
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="06 · Multi-brand application" title="The same sign-up screen, four brands" />
+            <Lead>Structure, fields, order and states stay the same; the brand skin changes. Side by side, the reuse is obvious.</Lead>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {[
+                [imgBrandNeutrogena, "Neutrogena · 188650"],
+                [imgBrandTylenol, "Tylenol · 204318"],
+                [imgBrandNeostrata, "Neostrata · 218177"],
+                [imgBrandListerine, "Listerine · 202188"],
+              ].map(([src, cap], i) => (
+                <FadeUp key={cap} delay={i * 0.06} className="flex flex-col gap-3">
+                  <div className="h-[380px] overflow-hidden rounded-[16px] bg-white shadow-sm md:h-[480px]">
+                    <img src={src} alt={cap} loading="lazy" className="w-full" />
+                  </div>
+                  <p className="text-[13px] font-normal text-[#5c626e]">{cap}</p>
+                </FadeUp>
+              ))}
             </div>
+            <FadeUp>
+              <div className="overflow-x-auto rounded-[16px] border border-[#e2e6ec] bg-white">
+                <table className="w-full min-w-[760px] text-left">
+                  <thead className="bg-[#f6f7f9] text-[11px] font-normal uppercase tracking-[0.08em] text-[#8c929e]">
+                    <tr>
+                      <th className="px-6 py-4 font-normal">Brand</th>
+                      <th className="px-6 py-4 font-normal">Ticket</th>
+                      <th className="px-6 py-4 font-normal">Delivery</th>
+                      <th className="px-6 py-4 font-normal">Note</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-[14px] leading-relaxed">
+                    {brands.map((b) => (
+                      <tr key={b.name} className="border-t border-[#e2e6ec] align-top">
+                        <td className="px-6 py-4 font-normal text-[#14181f]">
+                          {b.to ? (
+                            <Link to={b.to} className="underline-offset-4 hover:underline" style={{ color: BLUE }}>{b.name} →</Link>
+                          ) : (
+                            b.name
+                          )}
+                        </td>
+                        <td className="px-6 py-4 font-light text-[#5c626e]">{b.ticket}</td>
+                        <td className="px-6 py-4 font-light text-[#14181f]">{b.delivery}</td>
+                        <td className="px-6 py-4 font-light text-[#14181f]">{b.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </FadeUp>
+            <FadeUp>
+              <div className="flex flex-col gap-3 rounded-[16px] bg-white p-7 md:flex-row md:items-center md:justify-between">
+                <p className="text-[16px] font-light text-[#14181f]">
+                  The LISTERINE® 21 Day Challenge was built on top of this account: a new daily loop with reused sign-up.
+                </p>
+                <Link to="/projects/listerine" className="shrink-0 text-[15px] font-normal underline-offset-4 hover:underline" style={{ color: BLUE }}>
+                  See the 21 Day Challenge case →
+                </Link>
+              </div>
+            </FadeUp>
+          </div>
+        </ContentContainer>
+      </section>
 
+      {/* ── 07 Style guide ────────────────────────────────────────────────── */}
+      <section id="style-guide" style={{ backgroundColor: NAVY }}>
+        <ContentContainer className="py-16 md:py-[120px]">
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="07 · Style guide" title="The style guide travels inside the spec" light />
+            <Lead light>
+              The Johnson's guide (188651) was organized as a product proof of concept, not a brand manual: principles,
+              elements, components and assets. It's numbered inside the Tylenol spec and shipped in the Listerine folder, so
+              the brand application and the screens reach developers together.
+            </Lead>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              {[["1", "Principles", "Typography, colors, spacing and grid"], ["2", "Elements", "Board 2 of the spec"], ["3", "Components", "Cards and logged-in area patterns"], ["4", "Assets", "Board 4 of the spec"]].map(([n, t, d]) => (
+                <div key={n} className="rounded-[14px] border border-white/20 p-5">
+                  <p className="text-[24px] font-light" style={{ color: BLUE }}>{n}</p>
+                  <p className="mt-1 text-[17px] font-normal text-white">{t}</p>
+                  <p className="mt-1 text-[13px] font-light text-[#d6e8fa]">{d}</p>
+                </div>
+              ))}
+            </div>
             <div className="grid gap-6 md:grid-cols-2">
-              <DarkCard title="Before: Compliance as Content">
-                <p>
-                  In 2019, each project had its own privacy policy page — a standalone screen the user could visit if they chose. Terms existed as separate HTML files. Consent was passive.
-                </p>
-                <p>
-                  The law was technically met, but the experience placed the burden of understanding on the user.
-                </p>
-              </DarkCard>
-              <DarkCard title="After: Compliance as Component">
-                <p>
-                  By 2022, consent was a required checkbox that blocked flow progression. The timestamp of acceptance was recorded for audit. A granular Cookie Manager allowed category-level control. The logged-area header visibly reflected the user's authenticated state.
-                </p>
-                <p>
-                  Legal obligation became a transparency feature — and a competitive differentiator.
-                </p>
-              </DarkCard>
+              <CaseImage light src={imgSgPrinciples} alt="Design principles board" caption="Design Principles · typography, colors, spacing and grid" />
+              <CaseImage light src={imgSgComponents} alt="Components board" caption="Components · cards and logged-in area patterns" />
             </div>
-
-            <div className="grid gap-10 md:grid-cols-3 md:gap-[72px]">
-              <TextBlock label="Fragmented legal density">
-                <p>
-                  Instead of presenting all terms on a single screen, consent was distributed across the flow — summary checkbox at registration, full documents accessible via footer, terms available in FAQ, not mandatory.
-                </p>
-              </TextBlock>
-              <TextBlock label="Consent as a positive action">
-                <p>
-                  The checkbox was placed at the end of registration — a confirmation of what the user already decided, not a barrier before they could begin. A subtle but significant psychological shift that improved completion rates.
-                </p>
-              </TextBlock>
-              <TextBlock label="Cookie Manager as UX">
-                <p>
-                  The Cookie Manager documented in the Mexico deployment wasn't a generic blocking banner — it was an interface with individually selectable categories, turning a legal requirement into a moment of transparency.
-                </p>
-              </TextBlock>
-            </div>
-
+            <Lead light>
+              In parallel, a design system test (140564) applied two visual identities to the same home structure, to check
+              whether the components held up when the brand changed.
+            </Lead>
           </div>
         </ContentContainer>
       </section>
 
-      {/* ── Design System ─────────────────────────────────────────────────── */}
-      <section id="design-system" className="w-full bg-[#f5f5f5]">
-        <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="05" title="Design System" />
-
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <ImagePlaceholder label="J&J_DesignSystem_v1 — component library and token architecture" aspect="aspect-[4/3]" />
-              <TextBlock label="A design system built for parametrization">
-                <p>
-                  The J&J DesignSystem_v1 wasn't built as a visual style guide. It was built as a <strong className="font-normal text-[#1f1f1f]">parametrization layer</strong> — the infrastructure that allowed the same 16 screens to become Neutrogena, then Listerine, then Neostrata, without rebuilding components from scratch.
-                </p>
-                <p>
-                  The StyleGuide_Marcas project (ticket 188651) formalized this model: each brand's identity — typography, color palette, logo, iconography — was defined as a set of variables applied on top of the engine's shared component structure.
-                </p>
-              </TextBlock>
-            </div>
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="From Sketch to Figma — a tool transition mid-delivery">
-                <p>
-                  The 2022 engine pivot coincided with the team's migration from Sketch to Figma. This wasn't just a tooling change — it was an opportunity to rebuild design assets with stronger component architecture, auto-layout, and variable systems that Figma enabled.
-                </p>
-                <p>
-                  The HTML specification files (Specs) delivered to developers — interactive per-screen files with exact measurements, hex values, pixel-level typography — remained the gold standard for handoff regardless of the design tool.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="StyleGuide_Marcas — brand variable system across Neutrogena, Listerine, Neostrata" aspect="aspect-[4/3]" />
-            </div>
-
-            <FadeUp>
-              <div className="grid gap-4 md:grid-cols-2">
-                {[
-                  {
-                    label: "Engine Core",
-                    items: ["Shared component library", "16 authenticated states", "5 email templates", "Error & loading states"],
-                  },
-                  {
-                    label: "Brand Variables",
-                    items: ["Typography per brand", "Color palette tokens", "Logo & imagery guidelines", "Tone of voice & microcopy"],
-                  },
-                ].map((col) => (
-                  <div key={col.label} className="rounded-[16px] bg-white p-8 md:p-10">
-                    <p className="text-[16px] font-normal text-[#1f1f1f]">{col.label}</p>
-                    <ul className="mt-5 flex flex-col gap-3">
-                      {col.items.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-[15px] font-light text-[#5a5a5a]">
-                          <span className="mt-[6px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#b3b3b3]" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </FadeUp>
-
-          </div>
-        </ContentContainer>
-      </section>
-
-      {/* ── Impact ────────────────────────────────────────────────────────── */}
+      {/* ── 08 Impact ─────────────────────────────────────────────────────── */}
       <section id="impact">
         <ContentContainer className="py-16 md:py-[120px]">
-          <div className="flex flex-col gap-16">
-            <SectionHeading eyebrow="06" title="Scale &amp; Impact" />
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="CRM unification — the real strategic objective">
-                <p>
-                  The engine's deepest value wasn't the registration UX. It was the <strong className="font-normal text-[#1f1f1f]">unified user database it produced</strong>. A user who registered via a Listerine promotion and later participated in a Neutrogena campaign could be recognized as the same person — with a cross-brand profile enriched by both interactions.
-                </p>
-                <p>
-                  A fragmented database (one Listerine record + one Neutrogena record per user) has limited CRM value. A unified profile with cross-brand history enables segmentations that are impossible any other way.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="CRM data unification model — cross-brand user profile" aspect="aspect-[4/3]" />
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="08 · Impact" title="System scale, measured in the archive itself" />
+            <Lead>
+              There are no CRM metrics in the archive (sign-ups, account reuse, cost per launch). What can be backed up is
+              the scale and consistency of the system that was delivered.
+            </Lead>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              {[["5", "brand applications of the same grid, between 2022 and 2023"], ["00–17", "screen codes with A/B branches, identical across brands"], ["57", "numbered screens in the Tylenol HTML spec (about 57 in Neutrogena v1)"], ["1,200", "files in the Neutrogena folder, the largest on the account"]].map(([v, l]) => (
+                <div key={v} className="rounded-[16px] bg-[#f0f6fd] p-6">
+                  <p className="text-[34px] font-light" style={{ color: NAVY }}>{v}</p>
+                  <p className="mt-2 text-[14px] font-light leading-relaxed text-[#5c626e]">{l}</p>
+                </div>
+              ))}
             </div>
-
-            <FadeUp>
-              <div className="grid gap-[1px] overflow-hidden rounded-[16px] border border-[#e3e3e3] md:grid-cols-2">
-                {[
-                  { label: "Without the Engine", items: ["New campaign = full redesign (36+ screens)", "Separate legal review cycle", "New development sprint", "Fragmented user database", "Cost: 100% per launch"] },
-                  { label: "With the Engine", items: ["New campaign = fork + brand variables", "Legal review of delta only", "Configuration, not development", "Unified cross-brand CRM profile", "Cost: ~20–30% per launch"] },
-                ].map((col, i) => (
-                  <div key={col.label} className={`p-8 md:p-10 ${i === 0 ? "bg-[#f5f5f5]" : "bg-[#1f1f1f]"}`}>
-                    <p className={`text-[16px] font-normal ${i === 0 ? "text-[#1f1f1f]" : "text-white"}`}>{col.label}</p>
-                    <ul className="mt-6 flex flex-col gap-4">
-                      {col.items.map((item) => (
-                        <li key={item} className={`flex items-start gap-3 text-[15px] font-light ${i === 0 ? "text-[#5a5a5a]" : "text-white/50"}`}>
-                          <span className={`mt-[6px] h-[5px] w-[5px] shrink-0 rounded-full ${i === 0 ? "bg-[#b3b3b3]" : "bg-white/30"}`} />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                ["A method that became the standard", "Flow → wireframe → layout → tech: from Maternity on (323 artboards in a single Sketch file), the order of the delivery folders becomes how the account works."],
+                ["Continuity", "The grid kept being revisited in 2023 (Mexico), and the flow work continued through the corporate brand transition."],
+              ].map(([t, d]) => (
+                <FadeUp key={t}>
+                  <div className="h-full rounded-[16px] bg-[#f6f7f9] p-7">
+                    <p className="text-[18px] font-normal text-[#14181f]">{t}</p>
+                    <p className="mt-2 text-[14px] font-light leading-relaxed text-[#5c626e]">{d}</p>
                   </div>
-                ))}
-              </div>
-            </FadeUp>
-
-            <Divider />
-
-            <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-[72px] md:items-start">
-              <ImagePlaceholder label="CadastroMexico — engine adapted for Spanish-language market (2023)" aspect="aspect-[4/3]" />
-              <TextBlock label="Mexico — proving portability">
-                <p>
-                  In 2023, the engine was adapted for the Mexican market (ticket 214397_CadastroMexico) without a structural redesign. Language, local data protection requirements (closer to CCPA than LGPD), and brand context were the variables. The 16-state architecture remained intact.
-                </p>
-                <p>
-                  Internationalization that requires no redesign is the operational definition of a scalable engine.
-                </p>
-              </TextBlock>
+                </FadeUp>
+              ))}
             </div>
-
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-[72px] md:items-start">
-              <TextBlock label="Kenvue — the engine survived a corporate spin-off">
-                <p>
-                  In 2023, Johnson &amp; Johnson completed the largest spin-off in its history, separating consumer brands (Listerine, Neutrogena, Band-Aid) into a new entity: <strong className="font-normal text-[#1f1f1f]">Kenvue</strong>. The first Kenvue project in the archive (234944_Kenvue_SaudeTodoDia) continues the same work under the new corporate identity.
-                </p>
-                <p>
-                  A fragile system doesn't survive a rebrand. The engine did — because it was built with enough brand independence to outlast the corporate structure that commissioned it.
-                </p>
-              </TextBlock>
-              <ImagePlaceholder label="Kenvue_SaudeTodoDia — engine continuity after corporate rebrand (2023)" aspect="aspect-[4/3]" />
-            </div>
-
           </div>
         </ContentContainer>
       </section>
 
-      {/* ── Key Capabilities ──────────────────────────────────────────────── */}
-      <ContentContainer className="py-16 md:py-[120px]">
-        <div className="grid gap-10 md:grid-cols-3 md:gap-[72px]">
-          {[
-            {
-              title: "Experience Architecture",
-              body: "Designed a 16-state authentication system reusable across 9 brands, with full coverage of error, loading, and alternative user states — not just the happy path.",
-            },
-            {
-              title: "Compliance by Design",
-              body: "Transformed LGPD obligations into UX features: progressive consent, granular cookie control, and audit-ready timestamp capture — without creating friction that would hurt conversion.",
-            },
-            {
-              title: "Systems Thinking at Scale",
-              body: "Built a parametrization model that separated the engine core (invariable logic) from brand variables (visual identity, copy, legal text) — enabling ~80% cost reduction per new brand launch.",
-            },
-          ].map((item, i) => (
-            <FadeUp key={item.title} delay={i * 0.1} className="flex flex-col gap-4">
-              <p className="text-[18px] font-normal text-[#1f1f1f] md:text-[20px]">{item.title}</p>
-              <p className="text-[15px] font-light leading-relaxed text-[#5a5a5a] md:text-[16px]">{item.body}</p>
+      {/* ── 09 Reflection ─────────────────────────────────────────────────── */}
+      <section className="bg-[#f6f7f9]">
+        <ContentContainer className="py-16 md:py-[120px]">
+          <div className="flex flex-col gap-10">
+            <SectionHeading eyebrow="09 · Reflection" title="What I'd take to the next one" />
+            <div className="grid gap-4 md:grid-cols-4">
+              {[
+                ["Tokens, not just boards", "The guide was visual, inside Sketch and the spec. Exporting tokens (color, type, spacing) would have made brand swaps automatic on the engineering side."],
+                ["Measure the account", "How many people reused their sign-up in a second campaign, how many confirmed their email. Those numbers stayed with operations and would be the strongest proof of the system."],
+                ["Document the components", "The design system test validated the reskin, but a usage inventory was missing, which would have reduced small differences between brands."],
+                ["Keep the flow first", "What worked best: starting from the account model and the bad states, and only then the campaign layout."],
+              ].map(([t, d], i) => (
+                <FadeUp key={t} delay={i * 0.06}>
+                  <div className="h-full rounded-[16px] bg-white p-7">
+                    <p className="text-[18px] font-normal leading-snug text-[#14181f]">{t}</p>
+                    <p className="mt-3 text-[14px] font-light leading-relaxed text-[#5c626e]">{d}</p>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+            <FadeUp>
+              <p className="max-w-[900px] text-[20px] font-light leading-relaxed" style={{ color: NAVY }}>
+                In four years, the account stopped shipping disposable logins and started maintaining an experience engine:
+                the same authentication grid serving different brands, without redesigning the system for every campaign.
+              </p>
             </FadeUp>
-          ))}
-        </div>
-      </ContentContainer>
+          </div>
+        </ContentContainer>
+      </section>
 
       {/* ── Closing ───────────────────────────────────────────────────────── */}
-      <ContentContainer className="pb-16 pt-8 md:pb-[120px] md:pt-16">
+      <ContentContainer className="py-16 md:py-[120px]">
         <FadeUp>
           <div className="flex flex-col items-center gap-8 text-center">
-            <h2 className="text-[36px] font-light text-[#1f1f1f] md:text-[56px]">Thanks for reading.</h2>
-            <p className="mx-auto max-w-[560px] text-[16px] font-light leading-relaxed text-[#5a5a5a]">
-              This project represents five years of iterative thinking — from campaign-by-campaign execution to a unified platform that outlasted the company that commissioned it. Reach out if you'd like to go deeper.
+            <h2 className="text-[36px] font-light text-[#14181f] md:text-[56px]">Thanks for reading!</h2>
+            <p className="mx-auto max-w-[560px] text-[16px] font-light leading-relaxed text-[#5c626e]">
+              Maternity was where the single account first appeared in the interface.
             </p>
+            <Link to="/projects/maternity">
+              <button className="cursor-pointer rounded-full bg-[#14181f] px-6 py-3 text-[16px] font-normal text-white transition-opacity hover:opacity-80">
+                Next project
+              </button>
+            </Link>
           </div>
         </FadeUp>
       </ContentContainer>
-
     </main>
   );
 }
