@@ -4,12 +4,14 @@ import { ProjectCard } from "../components/ProjectCard";
 import img1 from "../../imports/Frame1-1/17484fa76e68e016ea4f9cb7bf74dd4e285d830f.png";
 import img2 from "../../imports/Frame1-1/4856bf47df4169cdcafa182864346bc9a5a04584.png";
 import img3 from "../../imports/Frame1-1/a35fc250f16f6bab9eab0bf17339a9d216e594fb.png";
+import imgEngine from "../../imports/engine/cover.webp";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 const projects = [
   { image: img1, title: "Hering Product Page", subtitle: "Visual & A/B Test Analytics", to: "/projects/hering" },
   { image: img2, title: "21 Day Challenge", subtitle: "LISTERINE® Campaign Lead Strategy", to: "/projects/listerine" },
+  { image: imgEngine, title: "One Account, Many Brands", subtitle: "Johnson & Johnson Sign-up Engine & Experience Architecture", to: "/projects/jj-engine" },
   { image: img3, title: "Maternity Care", subtitle: "Johnson's Baby Hotsite Marketing Strategy", to: "/projects/maternity" },
 ];
 
